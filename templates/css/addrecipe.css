@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+* {
+	margin:0;
+}
+
+h1,
+h2,
+p {
+  margin:5;
+}
+
+body,
+html {
+  font-family: "Lato", sans-serif;
+  height: 100%;
+  width: 100%; }
+
+h1,
+h2,
+{
+  font-weight: 700; }
+
+/* Spacing & Alignment Helpers */
+.text-center {
+  text-align: center; }
+
+/* Global Generic Styles */
+ul {
+  list-style: none;
+  padding: 0; }
+
+a {
+  text-decoration: none;
+  color: steelblue;
+  cursor: pointer;
+  -webkit-transition: all ease-in 0.1s;
+          transition: all ease-in 0.1s; }
+  a:hover {
+    text-decoration: none;
+    color: #999;
+    -webkit-transition: all ease-in 0.1s;
+            transition: all ease-in 0.1s; }
+#links {
+    float: right;
+    padding: 19px 20px 0 0; }
+#links li,
+#links ul {
+      display: inline-block;
+      padding: 5px 10px; }
+ #links a {
+      font-size: 1.1em;
+      padding-top: 10px; }
+#links a:focus,
+#links a:hover {
+      color: #FF5A5F;
+      text-decoration: none; }
+#links #users {
+      border: 2px solid #FF5A5F;
+      margin-right: 10px; }
+ #links #users a {
+        font-size: 1.1em; }
+
+.app-btn {
+  width: 100%;
+  background-color: #f12545;
+  border-color: #f12545;
+  color: white;
+  font-size:20px;
+}
+
+
+.app-btn:hover {
+  color: #fff;
+  background: #f01235;
+  border-color: #f01235;
+}
+
+
+body {
+  color: #5a5a5a;
+  background: url("/img/clean.jpg");
+  background-repeat: no-repeat;
+}
+
+.btn { margin-bottom:10px; }
+
+#logoTop {
+    float: left; }
+    @media (max-width: 767px) {
+		#logoTop #logo {
+          font-size: 20px;
+		padding: 20px 0 0 40px;} }
+    @media (min-width: 768px) {
+#logoTop {
+        padding: 21px 0 0 40px; }
+#logoTop #logo {
+          font-size: 26px; } }
+
+
+ #custom-search-form {
+        margin:0;
+        margin-top: 5px;
+        padding: 0;
+    }
+ 
+    #custom-search-form .search-query {
+        padding-right: 3px;
+        padding-right: 4px \9;
+        padding-left: 3px;
+        padding-left: 4px \9;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+ 
+        margin-bottom: 0;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+ 
+    #custom-search-form button {
+        border: 0;
+        background: none;
+        /** belows styles are working good */
+        padding: 2px 5px;
+        margin-top: 2px;
+        position: relative;
+        left: -28px;
+        /* IE7-8 doesn't have border-radius, so don't indent the padding */
+        margin-bottom: 0;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+ 
+    .search-query:focus + button {
+        z-index: 3;   
+    }
+
+
+
