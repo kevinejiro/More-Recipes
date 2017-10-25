@@ -78,7 +78,7 @@ a {
 
 body {
   color: #5a5a5a;
-  background: url("/img/clean.jpg");
+  background: url("../img/clean.jpg");
   background-repeat: no-repeat;
 }
 
