@@ -47,26 +47,6 @@ class Recipe {
       });
     }
     return res.status(400).send({ status: false, message: validate.message });
-
-
-    // recipes.push({
-    //   id: recipes.length + 1,
-    //   name: req.body.name,
-    //   description: req.body.description,
-    //   image: req.body.image,
-    //   ingredients: req.body.ingredients,
-    //   directions: req.body.directions,
-    //   created: new Date(),
-    //   upvotes: 0,
-    //   downvotes: 0,
-    //   favorited: 0,
-    // });
-    // return res.status(200).json({
-    //   status: 'success',
-    //   message: 'Recipe added',
-    //   error: false,
-    //   recipes
-    // });
   }
   /**
  * @returns {Object} recipes
