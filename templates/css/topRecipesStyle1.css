@@ -1,10 +1,9 @@
-
 .jumbotron {
   padding-top:10rem;
   padding-bottom: 10rem;
   margin-bottom: 0;
   background-color: #fff;
-  background-image: url(../img/pagebanner.jpg);
+  background-image:linear-gradient(to bottom, rgba(0, 0, 0, 6), rgba(0, 0, 0, .1)), url(../img/pagebanner.jpg);
   background-repeat: no-repeat;
   background-position: bottom center;
   background-size: cover;
@@ -15,19 +14,19 @@
 }
 
 .jumbotron-heading {
-  font-weight: 300;
+  font-weight: 700;
+font-size: 4.2em;
 }
 
 .jumbotron .container {
   max-width: 40rem;
-  background: rgba(204, 63, 38,0.7);
   padding: 2rem;
   color: white;
 }
 
 .jumbotron p {
     color: white;
-    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    text-shadow: 0 0 10px rgba(0,0,0,0.9);
 }
 
 .album {

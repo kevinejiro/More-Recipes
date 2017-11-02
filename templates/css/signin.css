@@ -37,7 +37,7 @@ a {
           transition: all ease-in 0.1s; }
   a:hover {
     text-decoration: none;
-    color: #999;
+    color: dodgerblue;
     -webkit-transition: all ease-in 0.1s;
             transition: all ease-in 0.1s; }
 
@@ -53,11 +53,8 @@ a {
       padding-top: 10px; }
     #overlay #links a:focus,
     #overlay #links a:hover {
-      color: #FF5A5F;
+      color: #0c4a60;
       text-decoration: none; }
-    #overlay #links #users {
-      border: 2px solid #FF5A5F;
-      margin-right: 10px; }
       #overlay #links #users a {
         font-size: 1.1em; }
 
@@ -96,7 +93,7 @@ a {
 .app-btn {
   width: 100%;
   background-color: #f12545;
-  border-color: #f12545;
+  border-color: rgba(229, 70, 70, 0.7);
   color: white;
   font-size:20px;
 }

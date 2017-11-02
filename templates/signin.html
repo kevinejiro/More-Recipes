@@ -22,11 +22,16 @@
 	
 	<div class="wrapper">
 		<div id="overlay">
-			<div id="navbar">
-			  <div id="logoTop">
-				<a id="logo" href="index.html">More Recipes</a>
-			  </div>
-			</div>
+        <div id="navbar">
+          <div id="logoTop">
+            <a id="logo" href="index.html">More Recipes</a>
+          </div>
+          <div id="links">
+            <ul>
+              <li id="users"><button type="button" class="btn btn-danger" ><a href="signup.html">Sign Up</a></button></li>
+            </ul>
+          </div>
+        </div>
 			<br>
 			<br>
 			<br>
@@ -51,16 +56,21 @@
 					  <form method="post" action="" id="loginForm">
 
 						<div class="form-group input-group">
-						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
 						  <input class="form-control" type="text" id="id_username" name="username" placeholder="Username">
 						</div>
 
 						<div class="form-group input-group">
-						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<span class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></span>
 						  <input class="form-control" type="password" id="id_password" name="password" placeholder="Password">
 						</div>
+						  
+						<div class="form-group input-group">
+							<span class="input-group-addon"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+						  <input class="form-control" type="password" id="id_password" name="password" placeholder="Confirm Password">
+						</div>
 						<div class="form-group">
-							<button type="submit" class="btn btn-primary app-btn">Sign in</button>
+							<button type="submit" class="btn btn-primary app-btn btn-danger"><a href="topRecipes.html">Sign In</a></button>
 						</div>
 					   <div class="form-group text-center">
 					   <p>Don't have an account ?
