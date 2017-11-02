@@ -53,6 +53,6 @@ router.get('/users/:userId/favorites', verifyUserSession, validateInput.checkFor
 // get all favourites
 
 
-router.post('/recipes/:recipeId/vote-:voteType', verifyUserSession, voteCtrl.checkRecipeExist, voteCtrl.voteRecipe, voteCtrl.countVote);
+router.post('/recipes/:recipeId/vote-:voteType', verifyUserSession, validateInput.checkForRecipe, voteCtrl.voteRecipe, voteCtrl.countVote);
 
 export default router;
