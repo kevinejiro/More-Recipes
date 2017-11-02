@@ -7,6 +7,8 @@ import router from './routes/index';
 // Set up the express app
 const app = express();
 
+process.env.SECRET_KEY = 'MischiefManage';
+
 // Log requests to the console.
 app.use(logger('dev'));
 
@@ -19,7 +21,7 @@ app.use('/api/v1/', router);
 
 // catches error404 handler
 app.use((req, res) => {
-  res.status(404).send({ success: false, message: 'Not Found!' });
+  res.status(404).send({ status: 'fail', message: 'Not Found!' });
 });
 
 export default app;
