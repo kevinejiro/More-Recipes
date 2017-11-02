@@ -13,7 +13,7 @@ A platform for users to share the awesome and exciting recipes ideas with the wo
  1. Express
  1. Sequelize
 
-**BASE_URL:** 
+**BASE_URL:** https://more-recipesv1.herokuapp.com/api/v1/
 
 ### RECIPES
 - **`POST` /recipes**
