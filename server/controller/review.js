@@ -44,6 +44,7 @@ const reviewCtrl = {
    * @param {*} res
    */
   getReviews(req, res) {
+    // get('/recipes/:recipeId/reviews'
     const { recipeId } = req.params;
 
     Review
