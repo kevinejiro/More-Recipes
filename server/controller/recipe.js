@@ -9,6 +9,7 @@ const recipeCtrl = {
      * @param {*} res
      */
   retrieveRecipe(req, res) {
+    // get('/recipes/:recipeId'
     const recipeId = parseInt(req.params.recipeId);
     return Recipe
       .find({
@@ -29,6 +30,7 @@ const recipeCtrl = {
    * @param {*} res
    */
   createRecipe(req, res) {
+    // post('/recipes')
     const { userId } = req;
 
     const title = req.body.title ? req.body.title.trim() : '';
@@ -53,6 +55,7 @@ const recipeCtrl = {
    * @param {*} res
    */
   editRecipe(req, res) {
+    // put('/recipes/:recipeId'
     const { userId } = req;
     const { recipeId } = req.params;
 
@@ -83,6 +86,7 @@ const recipeCtrl = {
    * @param {*} res
    */
   deleteRecipe(req, res) {
+    // delete('/recipes/:recipeId'
     const { userId } = req;
     // console.log(userId);
     Recipe
@@ -107,6 +111,7 @@ const recipeCtrl = {
    * @param {*} res
    */
   getAllRecipes(req, res) {
+    // get('/recipes'
     let { sort, order } = req.query;
     if (sort && order) {
       // if sort and order exist convert them to lowercase

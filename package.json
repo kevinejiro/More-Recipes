@@ -4,15 +4,17 @@
   "description": "A platform for users to share their recipe ideas with the world",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node server/bin/www",
+    "start": "node ./dist/bin/www.js",
     "start:dev": "nodemon --exec babel-node server/bin/www",
     "test:local": "cross-env NODE_ENV=test_local&& npm run migrate:undo&& npm run migrate&& nyc mocha server/test/test.js --compilers js:babel-core/register",
     "test:db": "set NODE_ENV=test && sequelize db:migrate:undo:all&&sequelize db:migrate && cross-env NODE_ENV=test nyc mocha server/test/test.js", 
     "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register server/test/test.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "build": "node ./node_modules/babel-cli/bin/babel.js -d ./dist ./server",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
-    "migrate": "sequelize db:migrate",
-    "migrate:undo": "sequelize db:migrate:undo:all"
+    "migrate": "node ./node_modules/sequelize-cli/bin/sequelize db:migrate",
+    "migrate:undo": "sequelize db:migrate:undo:all",
+    "heroku-postbuild": "npm run build && npm run migrate"
   },
   "nyc": {
     "require": [

@@ -19,7 +19,7 @@ router.post('/users/signin', validateInput.checkForUsername, userCtrl.signIn);//
 router.post('/recipes', verifyUserSession, recipeCtrl.createRecipe);// post a recipes
 router.get('/recipes/:recipeId', verifyUserSession, validateInput.checkForRecipe, recipeCtrl.retrieveRecipe);// get one recipe
 router.get('/users/:userId/recipes', verifyUserSession, validateInput.checkForUser, userCtrl.getUserRecipes);// get all recipes posted by a user
-router.get('/recipes', verifyUserSession, recipeCtrl.getAllRecipes);// get all recipes or  query {/recipes?sort=upvotes&order=des}
+router.get('/recipes', recipeCtrl.getAllRecipes);// get all recipes or  query {/recipes?sort=upvotes&order=des}
 router.delete('/recipes/:recipeId', verifyUserSession, validateInput.checkForRecipe, recipeCtrl.deleteRecipe);// delete a recipe
 router.put('/recipes/:recipeId', verifyUserSession, validateInput.checkForRecipe, recipeCtrl.editRecipe);// edit a recipe
 

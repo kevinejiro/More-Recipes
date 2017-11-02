@@ -1,4 +1,4 @@
-{
+module.exports = {
   "development": {
     "username": "postgres",
     "password": "kevinejiro",
@@ -17,3 +17,4 @@
     "use_env_variable": "DATABASE_URL"
   }
 }
+
