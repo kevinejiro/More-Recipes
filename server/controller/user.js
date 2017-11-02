@@ -77,7 +77,6 @@ const userCtrl = {
         }
       })
       .then((user) => {
-        // console.log(user);
         const token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: '60m' });
         bcryptjs.compare(password, user.password).then((check) => {
           if (check) {
@@ -105,7 +104,6 @@ const userCtrl = {
    */
   getUserRecipes(req, res) {
     const { userId } = req.params;
-    // console.log(userId);
     Recipe
       .findAll({
         where: {

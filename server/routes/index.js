@@ -13,21 +13,46 @@ router.get('/', (req, res) => {
   res.status(200).json({ status: 'pass', message: 'Welcome to More Recipes' });
 });
 
-router.post('/users/signup', userCtrl.createUser);// signup
-router.post('/users/signin', validateInput.checkForUsername, userCtrl.signIn);// signin
+router.post('/users/signup', userCtrl.createUser);
+// signup
 
-router.post('/recipes', verifyUserSession, recipeCtrl.createRecipe);// post a recipes
-router.get('/recipes/:recipeId', verifyUserSession, validateInput.checkForRecipe, recipeCtrl.retrieveRecipe);// get one recipe
-router.get('/users/:userId/recipes', verifyUserSession, validateInput.checkForUser, userCtrl.getUserRecipes);// get all recipes posted by a user
-router.get('/recipes', recipeCtrl.getAllRecipes);// get all recipes or  query {/recipes?sort=upvotes&order=des}
-router.delete('/recipes/:recipeId', verifyUserSession, validateInput.checkForRecipe, recipeCtrl.deleteRecipe);// delete a recipe
-router.put('/recipes/:recipeId', verifyUserSession, validateInput.checkForRecipe, recipeCtrl.editRecipe);// edit a recipe
+router.post('/users/signin', validateInput.checkForUsername, userCtrl.signIn);
+// signin
 
-router.post('/recipes/:recipeId/reviews', verifyUserSession, validateInput.checkForRecipe, reviewCtrl.addReview);// add a review
-router.get('/recipes/:recipeId/reviews', verifyUserSession, validateInput.checkForRecipe, reviewCtrl.getReviews);// get reviews of a recipe;
 
-router.post('/recipes/:recipeId/favorite', verifyUserSession, validateInput.checkForRecipe, favoriteCtrl.favoriteRecipe);// add a recipe to favorite list
-router.get('/users/:userId/favorites', verifyUserSession, validateInput.checkForUser, favoriteCtrl.getUserFavorites);// get all favourites
+router.post('/recipes', verifyUserSession, recipeCtrl.createRecipe);
+// post a recipes
 
-router.post('/recipes/:recipeId/vote-:voteType', verifyUserSession, validateInput.checkForRecipe, voteCtrl.voteRecipe, voteCtrl.countVote);
+router.get('/recipes/:recipeId', verifyUserSession, validateInput.checkForRecipe, recipeCtrl.retrieveRecipe);
+// get one recipe
+
+router.get('/users/:userId/recipes', verifyUserSession, validateInput.checkForUser, userCtrl.getUserRecipes);
+// get all recipes posted by a user
+
+router.get('/recipes', recipeCtrl.getAllRecipes);
+// get all recipes or  query {/recipes?sort=upvotes&order=des}
+
+router.delete('/recipes/:recipeId', verifyUserSession, validateInput.checkForRecipe, recipeCtrl.deleteRecipe);
+// delete a recipe
+
+router.put('/recipes/:recipeId', verifyUserSession, validateInput.checkForRecipe, recipeCtrl.editRecipe);
+// edit a recipe
+
+
+router.post('/recipes/:recipeId/reviews', verifyUserSession, validateInput.checkForRecipe, reviewCtrl.addReview);
+// add a review
+
+router.get('/recipes/:recipeId/reviews', verifyUserSession, validateInput.checkForRecipe, reviewCtrl.getReviews);
+// get reviews of a recipe;
+
+
+router.post('/recipes/:recipeId/favorite', verifyUserSession, validateInput.checkForRecipe, favoriteCtrl.favoriteRecipe);
+// add a recipe to favorite list
+
+router.get('/users/:userId/favorites', verifyUserSession, validateInput.checkForUser, favoriteCtrl.getUserFavorites);
+// get all favourites
+
+
+router.post('/recipes/:recipeId/vote-:voteType', verifyUserSession, voteCtrl.checkRecipeExist, voteCtrl.voteRecipe, voteCtrl.countVote);
+
 export default router;
