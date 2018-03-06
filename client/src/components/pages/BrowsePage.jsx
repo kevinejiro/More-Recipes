@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Jumbotron from '../common/Jumbotron';
+import RecipeCard from '../common/RecipeCard';
 
 import { topRecipes } from '../../actions/loadRecipes';
 
@@ -62,8 +63,18 @@ class BrowsePage extends React.Component {
           jumbotronText="Here is a list of the weeks
           top recipes. Happy Experimenting!!!"
         />
-
-        <div className="album text-muted" />
+        <div className="album text-muted">
+          <div className="container">
+            <div className="row">
+              <RecipeCard
+                description="Some description"
+                id={1}
+                imgUrl="https://res.cloudinary.com/dhgq8vcwi/image/upload/v1519918536/Indomielette.jpg"
+                title="Some Title"
+                />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

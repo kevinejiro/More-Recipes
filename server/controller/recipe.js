@@ -54,10 +54,18 @@ const recipeCtrl = {
     // post('/recipes')
     const { userId } = request;
 
-    const title = request.body.title ? request.body.title.trim() : '';
-    const description = request.body.description ? request.body.description.trim() : '';
-    const ingredients = request.body.ingredients ? request.body.ingredients.trim() : '';
-    const direction = request.body.direction ? request.body.direction.trim() : '';
+    const title =
+     request.body.title ?
+       request.body.title.trim() : '';
+    const description =
+    request.body.description ?
+      request.body.description.trim() : '';
+    const ingredients =
+     request.body.ingredients ?
+       request.body.ingredients.trim() : '';
+    const direction =
+     request.body.direction ?
+       request.body.direction.trim() : '';
     return Recipe
       .create({
         userId,
@@ -85,7 +93,11 @@ const recipeCtrl = {
       .findById(recipeId)
       .then((recipe) => {
         if (recipe.userId !== userId) {
-          return response.status(403).json({ status: 'fail', message: 'Not authorized to modify this recipe!' });
+          return response.status(403)
+            .json({
+              status: 'fail',
+              message: 'Not authorized to modify this recipe!'
+            });
         }
         return recipe
           .update({
@@ -94,13 +106,25 @@ const recipeCtrl = {
             ingredients: request.body.ingredients || recipe.ingredients,
             direction: request.body.direction || recipe.direction,
           })
-          .then(returnedRecipe => response.status(200).json({ status: 'pass', message: 'recipe updated successfully', returnedRecipe }))
-          .catch(() => response.status(400).json({ status: 'fail', message: 'Error modifying recipe' }));
+          .then(returnedRecipe => response
+            .status(200)
+            .json({
+              status: 'pass',
+              message: 'recipe updated successfully',
+              returnedRecipe
+            }))
+          .catch(() => response
+            .status(400)
+            .json({
+              status: 'fail',
+              message: 'Error modifying recipe'
+            }));
       })
-      .catch(() => response.status(500).json({
-        status: 'fail',
-        message: 'Error modifying recipe'
-      }));
+      .catch(() => response
+        .status(500).json({
+          status: 'fail',
+          message: 'Error modifying recipe'
+        }));
   },
   /**
   * @param {object} request HTTP Request Object
@@ -131,12 +155,19 @@ const recipeCtrl = {
               status: 'pass',
               message: 'Recipe was deleted successfully'
             }))
-          .catch(() => response.status(400).json({ status: 'fail', message: 'Recipe cannot be deleted' }));
+          .catch(() => response
+            .status(400)
+            .json({
+              status: 'fail',
+              message: 'Recipe cannot be deleted'
+            }));
       })
-      .catch(() => response.status(500).json({
-        status: 'fail',
-        message: 'Error deleting recipe'
-      }));
+      .catch(() => response
+        .status(500)
+        .json({
+          status: 'fail',
+          message: 'Error deleting recipe'
+        }));
   },
   /**
   * @param {object} request HTTP Request Object
@@ -176,30 +207,75 @@ const recipeCtrl = {
         .findAll({
           order: [[sortCriteria, orderCriteria]],
           include: [
-            { model: Review, as: 'reviews', attributes: ['id', 'body', 'userId'] },
-            { model: User, attributes: ['id', 'username', 'fullname'] }
+            {
+              model: Review,
+              as: 'reviews',
+              attributes: ['id', 'body', 'userId']
+            },
+            {
+              model: User,
+              attributes: ['id', 'username', 'fullname']
+            }
           ]
         })
         .then((recipes) => {
           const recipeCount = recipes.length;
-          if (recipeCount === 0) { return response.status(200).send({ status: 'pass', message: 'No recipes found' }); }
-          response.status(200).send({ status: 'pass', message: `${recipeCount} recipes found`, recipes });
+          if (recipeCount === 0) {
+            return response
+              .status(200)
+              .send({
+                status: 'pass',
+                message: 'No recipes found'
+              });
+          }
+          response
+            .status(200)
+            .send({
+              status: 'pass',
+              message: `${recipeCount} recipes found`,
+              recipes
+            });
         })
-        .catch(() => response.status(500).send({ status: 'fail', message: 'cant get recipes' }));
+        .catch(() => response
+          .status(500)
+          .send({
+            status: 'fail',
+            message: 'cant get recipes'
+          }));
     }
-    // if no query is passed, just return all the recipes by upvotes in decending order
+    // if no query, return all the recipes by upvotes in decending order
     return Recipe
       .findAll({
         order: [['upvoteCount', 'DESC']],
         include: [
-          { model: Review, as: 'reviews', attributes: ['id', 'body', 'userId'] },
-          { model: User, attributes: ['id', 'username', 'fullname'] }
+          {
+            model: Review,
+            as: 'reviews',
+            attributes: ['id', 'body', 'userId']
+          },
+          {
+            model: User,
+            attributes: ['id', 'username', 'fullname']
+          }
         ]
       })
       .then((recipes) => {
         const recipeCount = recipes.length;
-        if (recipeCount === 0) { return response.status(200).send({ status: 'pass', message: 'No recipes found' }); }
-        response.status(200).send({ status: 'pass', message: `${recipeCount} recipes found`, recipes });
+        if (recipeCount === 0) {
+          return response
+            .status(200)
+            .send({
+              status: 'pass',
+              message: 'No recipes found'
+            });
+        }
+        response
+          .status(200)
+          .send({
+            status: 'pass',
+            message: `${recipeCount} recipes found`,
+            recipes
+          });
       })
       .catch(err => response.status(404).json({
         status: 'fail',

@@ -2,6 +2,7 @@ import React from 'react';
 
 import IndexVideo from './indexPage/IndexVideo';
 import Header from './Header';
+import Footer from './common/Footer';
 
 /**
  * @class App
@@ -21,7 +22,8 @@ class App extends React.Component {
    * @returns {JSX} JSX element
    */
   render() {
-    const indexLocation = window.location.pathname === '/';
+    const windowLocation = window.location.pathname;
+    const indexLocation = windowLocation === '/';
     return (
       <div
         className={
@@ -34,6 +36,10 @@ class App extends React.Component {
         <div id="overlay">
           <Header />
           {this.props.children}
+          {windowLocation !== '/signup' &&
+            windowLocation !== '/signin' &&
+              <Footer />
+          }
         </div>
       </div >
     );

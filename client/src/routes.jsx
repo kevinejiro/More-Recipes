@@ -9,6 +9,8 @@ import BrowsePage from './components/pages/BrowsePage';
 import SignUp from './components/pages/SignUp';
 import SignIn from './components/pages/SignIn';
 import TopRecipes from './components/topRecipes/TopRecipesPage';
+import RecipePage from './components/recipePage/RecipePage';
+import ProfilePage from './components/profilePageComponent/ProfilePage';
 /**
  * @returns {JSX} jsx
  */
@@ -38,6 +40,16 @@ const Main = () => (
       exact
       component={TopRecipes}
       path="/toprecipes"
+    />
+    <Route
+      exact
+      component={RecipePage}
+      path="/recipes/:recipeId"
+    />
+    <Route
+      exact
+      component={ProfilePage}
+      path="/dashboard"
     />
   </App>
 );
