@@ -10,7 +10,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: [
     'babel-polyfill',
-    './client/src/index.jsx',
+    './client/src/Index.jsx',
   ],
   output: {
     filename: 'bundle.js',
