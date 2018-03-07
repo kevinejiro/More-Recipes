@@ -60,7 +60,6 @@ class Header extends React.Component {
               navbar
               className="ml-auto"
             >
-            
               <NavItem>
                 <NavLink
                   tag={Link}
