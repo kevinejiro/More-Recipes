@@ -43,7 +43,6 @@ class ProfilePage extends React.Component {
   */
   componentWillUnmount() {
     document.body.classList.remove('in-profile');
-
   }
   /**
    *

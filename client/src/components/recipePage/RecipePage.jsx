@@ -34,7 +34,9 @@ class RecipePage extends React.Component {
     this.setState({
     });
   }
-  /** */
+  /**
+   *
+  */
   componentWillUnmount() {
     document.body.classList.remove('in-profile');
   }
