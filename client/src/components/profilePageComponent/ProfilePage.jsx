@@ -7,7 +7,7 @@ import AddRecipeComponent from './AddRecipeComponent';
 // import { Link } from 'react-router-dom';
 // import { connect } from 'react-redux';
 // import RecipeCard from '../common/RecipeCard';
-
+        
 /**
  * @class ProfilePage
  */
@@ -63,7 +63,6 @@ class ProfilePage extends React.Component {
       });
     }
   }
-
   /**
    * @returns {JSX} JSX element
    */

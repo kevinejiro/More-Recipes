@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-
 import { Link } from 'react-router-dom';
 import TextField from '../common/TextField';
 import { signInCheck } from '../../helpers/authHelpers';
