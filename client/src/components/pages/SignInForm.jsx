@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import TextField from '../common/TextField';
 import { signInCheck } from '../../helpers/authHelpers';
@@ -43,17 +44,15 @@ class SignInForm extends React.Component {
     } else {
       axios.post(`${serverUrl}/users/signin`, this.state)
         .then((response) => {
-          console.log(response);
-          this.setState({
-            isLoading: false,
-            error: {}
-          });
+          this.context.router.history.push('/dashboard');
         })
         .catch((errors) => {
-          console.log(errors);
+          console.log(errors.response);
           this.setState({
             isLoading: false,
-            error: errors
+            error: {
+              errorMessage: errors.response.data.message
+            }
           });
         });
     }
@@ -122,6 +121,9 @@ class SignInForm extends React.Component {
     );
   }
 }
+SignInForm.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
 
 export default SignInForm;
 

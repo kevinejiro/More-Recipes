@@ -47,7 +47,7 @@ class TopRecipes extends React.Component {
         <div className="album text-muted" >
           <div className="container">
             <SearchBar />
-            <div className="row">
+            <div className="row browse-page">
               <RecipeCard
                 description="Some description"
                 id={1}

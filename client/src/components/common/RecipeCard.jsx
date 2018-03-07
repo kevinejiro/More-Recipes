@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 */
 const RecipeCard = props => (
   <div
-    className="card"
+    className="card recipe-card"
   >
     <img
       alt={props.title}

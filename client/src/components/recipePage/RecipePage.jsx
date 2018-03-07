@@ -44,7 +44,7 @@ class RecipePage extends React.Component {
   render() {
     return (
       <div>
-        <div className="container marketing">
+        <div className="container marketing layout">
           <hr className="featurette-divider"
           />
           <div className="row featurette">
