@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 
     imgUrl: {
       type: DataTypes.STRING,
-      defaultValue: 'no-img'
+      allowNull: true
 
     },
 
@@ -79,4 +79,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return Recipe;
 };
-

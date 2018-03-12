@@ -10,7 +10,10 @@ import voteCtrl from '../controller/vote';
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.status(200).json({ status: 'pass', message: 'Welcome to More Recipes' });
+  res.status(200).json({
+    status: 'pass',
+    message: 'Welcome to More Recipes'
+  });
 });
 
 router.post(
@@ -36,7 +39,6 @@ router.post(
 
 router.get(
   '/recipes/:recipeId',
-  verifyUserSession,
   validateInput.checkForRecipe,
   recipeCtrl.retrieveRecipe
 );

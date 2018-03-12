@@ -23,7 +23,8 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin('./style.css'),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.SERVER_URL': JSON.stringify('api/v1')
     }),
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,

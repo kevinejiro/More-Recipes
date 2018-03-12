@@ -54,8 +54,7 @@ module.exports = {
     // })
   ],
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [{
@@ -105,12 +104,14 @@ module.exports = {
         query: {
           cacheDirectory: true,
           presets: ['react', 'es2015'],
-          plugins: [[
-            'transform-class-properties',
-            {
-              spec: true
-            }
-          ]]
+          plugins: [
+            [
+              'transform-class-properties',
+              {
+                spec: true
+              }
+            ]
+          ]
         },
       },
       {
@@ -119,18 +120,19 @@ module.exports = {
           path.join(__dirname, 'client'),
           path.join(__dirname, 'server/helpers'),
         ],
-        loader:
-          'babel-loader',
+        loader: 'babel-loader',
         exclude: [/node_modules/, 'test'],
         query: {
           cacheDirectory: true,
           presets: ['react', 'es2015'],
-          plugins: [[
-            'transform-class-properties',
-            {
-              spec: true
-            }
-          ]]
+          plugins: [
+            [
+              'transform-class-properties',
+              {
+                spec: true
+              }
+            ]
+          ]
         },
       },
     ],
