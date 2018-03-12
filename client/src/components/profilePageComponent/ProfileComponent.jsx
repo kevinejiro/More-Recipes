@@ -21,7 +21,7 @@ function ProfileComponent(props) {
         </div>
         <div className="sidebar--title">
           <div className="sidebar--title-name">
-            Ejiro Kevin
+            {props.Username}
           </div>
         </div>
       </div>
@@ -78,5 +78,6 @@ function ProfileComponent(props) {
 ProfileComponent.propTypes = {
   currentActionType: PropTypes.string.isRequired,
   handleButtonClick: PropTypes.func.isRequired,
+  Username: PropTypes.string.isRequired,
 };
 export default ProfileComponent;

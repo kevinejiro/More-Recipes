@@ -10,7 +10,7 @@ const SignIn = () => (
     <div className="container">
       <div className="messages-container" />
       <div className="row">
-        <div className="col-md-6 offset-md-3">
+        <div className="col-md-6 offset-md-3 signup-border">
           <div className="panel panel-default">
             <div className="panel-heading">
               <h3 className="panel-title">

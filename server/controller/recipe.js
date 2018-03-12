@@ -1,26 +1,31 @@
 import db from '../models';
 
-const { Recipe, Review, User } = db;
+const {
+  Recipe,
+  Review,
+  User
+} = db;
 
 const recipeCtrl = {
   /**
- * @param {object} request HTTP Request Object
- * @param {object} response HTTP Response Object
- *
- * @returns {Object} recipe
- */
+   * @param {object} request HTTP Request Object
+   * @param {object} response HTTP Response Object
+   *
+   * @returns {Object} recipe
+   */
   retrieveRecipe(request, response) {
     // get('/recipes/:recipeId'
     const recipeId = parseInt(request.params.recipeId, 10);
     return Recipe
       .find({
-        where: { id: recipeId },
-        include:
-          [{
-            model: Review,
-            as: 'reviews',
-            attributes: ['id', 'body', 'userId']
-          }],
+        where: {
+          id: recipeId
+        },
+        include: [{
+          model: Review,
+          as: 'reviews',
+          attributes: ['id', 'body', 'userId']
+        }],
       })
       .then((recipe) => {
         if (recipe) {
@@ -45,27 +50,39 @@ const recipeCtrl = {
       }));
   },
   /**
- * @param {object} request HTTP Request Object
- * @param {object} response HTTP Response Object
- *
- * @returns {Object} recipe
- */
+   * @param {object} request HTTP Request Object
+   * @param {object} response HTTP Response Object
+   *
+   * @returns {Object} recipe
+   */
   createRecipe(request, response) {
     // post('/recipes')
-    const { userId } = request;
+    const {
+      userId
+    } = request;
 
     const title =
-     request.body.title ?
-       request.body.title.trim() : '';
+      request.body.title ?
+      request.body.title.trim() : '';
     const description =
-    request.body.description ?
+      request.body.description ?
       request.body.description.trim() : '';
     const ingredients =
-     request.body.ingredients ?
-       request.body.ingredients.trim() : '';
+      request.body.ingredients ?
+      request.body.ingredients.trim() : '';
     const direction =
-     request.body.direction ?
-       request.body.direction.trim() : '';
+      request.body.direction ?
+      request.body.direction.trim() : '';
+
+    let {
+      imgUrl
+    } = request.body;
+
+    if (!imgUrl) {
+      imgUrl = 'https://res.cloudinary.com/dhgq8vcwi/image/upload/v1519918536/Indomielette.jpg';
+    }
+
+
     return Recipe
       .create({
         userId,
@@ -73,21 +90,33 @@ const recipeCtrl = {
         description,
         ingredients,
         direction,
+        imgUrl
       })
       .then(recipe => response.status(201)
-        .json({ status: 'pass', message: 'recipe created successfully', recipe }))
-      .catch(err => response.status(500).json({ status: 'fail', message: err }));
+        .json({
+          status: 'pass',
+          message: 'recipe created successfully',
+          recipe
+        }))
+      .catch(err => response.status(500).json({
+        status: 'fail',
+        message: err
+      }));
   },
   /**
- * @param {object} request HTTP Request Object
- * @param {object} response HTTP Response Object
- *
- * @returns {Object} recipe
- */
+   * @param {object} request HTTP Request Object
+   * @param {object} response HTTP Response Object
+   *
+   * @returns {Object} recipe
+   */
   editRecipe(request, response) {
     // put('/recipes/:recipeId'
-    const { userId } = request;
-    const { recipeId } = request.params;
+    const {
+      userId
+    } = request;
+    const {
+      recipeId
+    } = request.params;
 
     return Recipe
       .findById(recipeId)
@@ -127,15 +156,15 @@ const recipeCtrl = {
         }));
   },
   /**
-  * @param {object} request HTTP Request Object
-  * @param {object} response HTTP Response Object
-  *
-  * @returns {Object} recipe
-  */
+   * @param {object} request HTTP Request Object
+   * @param {object} response HTTP Response Object
+   *
+   * @returns {Object} recipe
+   */
   deleteRecipe(request, response) {
-    // delete('/recipes/:recipeId'
-    const { userId } = request;
-    // console.log(userId);
+    const {
+      userId
+    } = request;
     Recipe
       .findById(request.params.recipeId)
       .then((recipe) => {
@@ -170,14 +199,17 @@ const recipeCtrl = {
         }));
   },
   /**
-  * @param {object} request HTTP Request Object
-  * @param {object} response HTTP Response Object
-  *
-  * @returns {Object} recipe
-  */
+   * @param {object} request HTTP Request Object
+   * @param {object} response HTTP Response Object
+   *
+   * @returns {Object} recipe
+   */
   getAllRecipes(request, response) {
     // get('/recipes'
-    let { sort, order } = request.query;
+    let {
+      sort,
+      order
+    } = request.query;
     if (sort && order) {
       // if sort and order exist convert them to lowercase
       sort = sort.toLowerCase();
@@ -205,9 +237,10 @@ const recipeCtrl = {
 
       return Recipe
         .findAll({
-          order: [[sortCriteria, orderCriteria]],
-          include: [
-            {
+          order: [
+            [sortCriteria, orderCriteria]
+          ],
+          include: [{
               model: Review,
               as: 'reviews',
               attributes: ['id', 'body', 'userId']
@@ -246,9 +279,10 @@ const recipeCtrl = {
     // if no query, return all the recipes by upvotes in decending order
     return Recipe
       .findAll({
-        order: [['upvoteCount', 'DESC']],
-        include: [
-          {
+        order: [
+          ['upvoteCount', 'DESC']
+        ],
+        include: [{
             model: Review,
             as: 'reviews',
             attributes: ['id', 'body', 'userId']

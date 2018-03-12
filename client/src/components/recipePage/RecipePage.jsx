@@ -4,8 +4,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReviewBar from './ReviewBar';
 import ReviewForm from './ReviewForm';
+
+
+// actions
+import getSingleRecipe from '../../actions/getSingleRecipe';
 /**
- * @class Toprecipes
+ * @class RecipePage
  */
 class RecipePage extends React.Component {
   /**
@@ -17,6 +21,13 @@ class RecipePage extends React.Component {
     this.state = {
 
     };
+  }
+  /**
+ * @returns {void} void
+ */
+  componentWillMount() {
+    console.log(this.props);
+    this.props.recipe(this.props.match.params.recipeId);
   }
   /**
    * @returns {void} void
@@ -35,7 +46,7 @@ class RecipePage extends React.Component {
     });
   }
   /**
-   *
+   *@returns {void} void
   */
   componentWillUnmount() {
     document.body.classList.remove('in-profile');
@@ -44,6 +55,13 @@ class RecipePage extends React.Component {
    * @returns {JSX} JSX element
    */
   render() {
+    const {
+      recipeTitle,
+      recipeDescription,
+      recipeAuthor,
+      recipeIngredients,
+      recipeDirections,
+    } = this.state;
     return (
       <div>
         <div className="container marketing layout">
@@ -58,23 +76,30 @@ class RecipePage extends React.Component {
               />
             </div>
             <div className="col-md-7">
-              <h2 className="featurette-heading">Recipe Title.</h2>
-              <h3>Posted by
+              <h2 className="featurette-heading"
+              >
+                {recipeTitle}
+              </h2>
+              <h3>
+                Posted by
                 <Link
                   href="/dashboard"
                   to="/dashboard"
                 >
-                  User Name
+                  {recipeAuthor}
                 </Link>
               </h3>
+              <h4 className="page-header">Descriptions</h4>
+              <p>
+                {recipeDescription}
+              </p>
               <h4 className="page-header">Ingredients</h4>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                {recipeIngredients}
               </p>
               <h4 className="page-header">Directions</h4>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                {recipeDirections}
               </p>
               <div
                 className="icons">
@@ -107,5 +132,13 @@ class RecipePage extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  getSingleRecipe: state.recipe
+});
 
-export default RecipePage;
+const mapDispatchToProps = dispatch => ({
+  recipe: id => dispatch(getSingleRecipe(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipePage);
+

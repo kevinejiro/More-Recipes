@@ -3,7 +3,10 @@ import jwt from 'jsonwebtoken';
 import db from '../models';
 
 
-const { User, Recipe } = db;
+const {
+  User,
+  Recipe
+} = db;
 
 const userCtrl = {
   /**
@@ -16,8 +19,8 @@ const userCtrl = {
     const username = req.body.username ? req.body.username.trim() : '';
     const email = req.body.email ? req.body.email.trim() : '';
     const password = req.body.password ? req.body.password.trim() : '';
-    const passwordConfirmation = req.body.passwordConfirmation
-      ? req.body.passwordConfirmation.trim() : '';
+    const passwordConfirmation = req.body.passwordConfirmation ?
+      req.body.passwordConfirmation.trim() : '';
 
     // checking for valid input data using regex
     const EMAIL_REGEXP = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
@@ -32,9 +35,9 @@ const userCtrl = {
     } else if (!USERNAME_REGEXP.test(username)) {
       errMsg = `Username must be between 4 and 
       15 characters long, with no space between characters`;
-    } else if (email.length <= 7
-      || email.length > 30
-      || !EMAIL_REGEXP.test(email)) {
+    } else if (email.length <= 7 ||
+      email.length > 30 ||
+      !EMAIL_REGEXP.test(email)) {
       errMsg = 'invalid email address';
     } else if (password === '') {
       errMsg = 'Password is required';
@@ -45,7 +48,10 @@ const userCtrl = {
     }
     if (errMsg) {
       return res.status(400)
-        .json({ success: false, message: errMsg });
+        .json({
+          success: false,
+          message: errMsg
+        });
     }
 
     return User
@@ -56,16 +62,21 @@ const userCtrl = {
         fullname: req.body.fullname
       })
       .then((user) => {
-        const token = jwt.sign(
-          { user },
-          process.env.SECRET_KEY, { expiresIn: '60m' }
+        const token = jwt.sign({
+            user
+          },
+          process.env.SECRET_KEY, {
+            // expiresIn: '60m'
+          }
         );
         res.status(201).json({
           success: true,
           message: 'Account created successfully',
-          id: user.id,
-          username: user.username,
-          email: user.email,
+          user: {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+          },
           token
         });
       })
@@ -81,7 +92,9 @@ const userCtrl = {
    */
   signIn(req, res) {
     const username = req.body.username ? req.body.username.trim() : '';
-    const { password } = req.body;
+    const {
+      password
+    } = req.body;
 
     if (!(username && password)) {
       return res.status(400)
@@ -98,12 +111,21 @@ const userCtrl = {
         }
       })
       .then((user) => {
-        const token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: '60m' });
+        const token = jwt.sign({
+          user
+        }, process.env.SECRET_KEY, {
+          // expiresIn: '60m'
+        });
         bcryptjs.compare(password, user.password).then((check) => {
           if (check) {
             res.status(200).json({
               status: 'pass',
               message: 'Log in was successful',
+              user: {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+              },
               token
             });
           } else {
@@ -124,7 +146,9 @@ const userCtrl = {
    * @param {*} res
    */
   getUserRecipes(req, res) {
-    const { userId } = req.params;
+    const {
+      userId
+    } = req.params;
     Recipe
       .findAll({
         where: {
@@ -139,9 +163,16 @@ const userCtrl = {
             message: 'User has not posted any recipes',
           });
         }
-        return res.status(200).json({ success: true, message: `${recipesCount} recipes posted`, recipes });
+        return res.status(200).json({
+          success: true,
+          message: `${recipesCount} recipes posted`,
+          recipes
+        });
       })
-      .catch(() => res.status(500).json({ success: false, message: 'Something went wrong ' }));
+      .catch(() => res.status(500).json({
+        success: false,
+        message: 'Something went wrong '
+      }));
   }
 };
 

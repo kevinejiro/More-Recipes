@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import TextField from '../common/TextField';
 import { signUpCheck } from '../../helpers/authHelpers';
-import { signUpAction } from '../action/auth';
+import getSignUp from '../../actions/signUp';
 
 /**
  * @class SignUpForm
@@ -21,17 +21,30 @@ class SignUpForm extends React.Component {
       email: '',
       password: '',
       passwordConfirmation: '',
-      isLoading: false,
       error: {}
     };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
-  onChange = (event) => {
+  /**
+   * 
+   * 
+   * @param {any} event 
+   * @memberof SignUpForm
+   */
+  onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  onSubmit = (event) => {
+
+  /**
+ *
+ *
+ * @param {any} event
+ * @memberof SignUpForm
+ */
+  onSubmit(event) {
     event.preventDefault();
     this.setState({
-      isLoading: true,
       error: {}
     });
     const { hasError, error } =
@@ -39,13 +52,14 @@ class SignUpForm extends React.Component {
 
     if (hasError) {
       this.setState({
-        isLoading: false,
         error
       });
     } else {
-      this.props.signUpAction(this.state);
+      const userData = this.state;
+      this.props.signUpUser(userData);
     }
   }
+
 
   /**
    * @returns {JSX} JSX element
@@ -130,9 +144,15 @@ class SignUpForm extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  {
-    signUpAction
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+const mapDispatchToProps = dispatch => ({
+  signUpUser: (userDetails) => {
+    dispatch(getSignUp(userDetails));
   }
-)(SignUpForm);
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

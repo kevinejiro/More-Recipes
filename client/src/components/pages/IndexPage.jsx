@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import TopRecipesPage from '../topRecipes/TopRecipesPage';
 
 /**
  * IndexPage component
@@ -14,8 +15,8 @@ const IndexPage = () => (
     <h2>Share your recipes with the world.</h2>
     <Link
       className="btn btn-lg btn-primary"
-      href="/browse"
-      to="/browse"
+      href="/toprecipes"
+      to="/toprecipes"
     >
       Browse Site
     </Link>

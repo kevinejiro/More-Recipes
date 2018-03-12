@@ -12,7 +12,7 @@ function RecipeComponent(props) {
     <div className="body-wrapper">
       <div className="body-wrapper-header">
         <div className="card px-auto">
-          Header
+          {props.header}
         </div>
       </div>
       <div className="body-wrapper-content">

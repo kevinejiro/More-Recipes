@@ -5,7 +5,7 @@ import {
 
 import App from './components/App';
 import IndexPage from './components/pages/IndexPage';
-import BrowsePage from './components/pages/BrowsePage';
+// import BrowsePage from './components/pages/BrowsePage';
 import SignUp from './components/pages/SignUp';
 import SignIn from './components/pages/SignIn';
 import TopRecipes from './components/topRecipes/TopRecipesPage';
@@ -21,11 +21,11 @@ const Main = () => (
       component={IndexPage}
       path="/"
     />
-    <Route
+    {/* <Route
       exact
       component={BrowsePage}
       path="/browse"
-    />
+    /> */}
     <Route
       exact
       component={SignUp}

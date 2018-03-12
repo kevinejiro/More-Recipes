@@ -1,9 +1,16 @@
-import { combineReducers } from 'redux';
+import {
+  combineReducers
+} from 'redux';
 
-import topRecipesReducer from './topRecipes';
+import isLoading from './isLoading';
+import recipes from './recipes';
+import auth from './auth';
+
 
 const rootReducer = combineReducers({
-  topRecipesReducer
+  isLoading,
+  recipes,
+  auth
 });
 
 export default rootReducer;

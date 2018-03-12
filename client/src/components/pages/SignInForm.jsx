@@ -1,11 +1,11 @@
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import TextField from '../common/TextField';
 import { signInCheck } from '../../helpers/authHelpers';
-
-const { serverUrl } = process.env;
+import getSignIn from '../../actions/signIn';
 
 /**
  * @class SignInForm
@@ -20,9 +20,10 @@ class SignInForm extends React.Component {
     this.state = {
       username: '',
       password: '',
-      isLoading: false,
       error: {}
     };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
@@ -30,7 +31,6 @@ class SignInForm extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
     this.setState({
-      isLoading: true,
       error: {}
     });
     const { hasError, error } =
@@ -38,23 +38,11 @@ class SignInForm extends React.Component {
 
     if (hasError) {
       this.setState({
-        isLoading: false,
         error
       });
     } else {
-      axios.post(`${serverUrl}/users/signin`, this.state)
-        .then((response) => {
-          this.context.router.history.push('/dashboard');
-        })
-        .catch((errors) => {
-          console.log(errors.response);
-          this.setState({
-            isLoading: false,
-            error: {
-              errorMessage: errors.response.data.message
-            }
-          });
-        });
+      const userData = this.state;
+      this.props.signInUser(userData);
     }
   }
 
@@ -124,6 +112,14 @@ class SignInForm extends React.Component {
 SignInForm.contextTypes = {
   router: PropTypes.object.isRequired,
 };
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
-export default SignInForm;
+const mapDispatchToProps = dispatch => ({
+  signInUser: (userDetails) => {
+    dispatch(getSignIn(userDetails));
+  }
+});
 
+export default connect(mapStateToProps, mapDispatchToProps)(SignInForm);
