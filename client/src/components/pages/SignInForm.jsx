@@ -20,14 +20,49 @@ class SignInForm extends React.Component {
     this.state = {
       username: '',
       password: '',
+      isLoading: false,
       error: {}
     };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+  }
+  /**
+   * @returns {void} void
+   */
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.context.router.history.push('/dashboard');
+    }
+  }
+  /**
+   *
+   * @param {object} nextProps
+   *
+   * @returns {void} void
+   */
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      isLoading: nextProps.isLoading
+    });
+    if (nextProps.auth.isAuthenticated &&
+      !nextProps.auth.errorMessage) {
+      return this.setState({
+        username: '',
+        password: '',
+      }, () => {
+        this.context.router.history.push('/dashboard');
+      });
+    }
+    if (nextProps.auth.errorMessage) {
+      this.setState({
+        error: {
+          errorMessage: nextProps.auth.errorMessage
+        }
+      });
+    }
   }
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
+
   onSubmit = (event) => {
     event.preventDefault();
     this.setState({
@@ -45,7 +80,6 @@ class SignInForm extends React.Component {
       this.props.signInUser(userData);
     }
   }
-
   /**
    * @returns {JSX} JSX element
    */
@@ -100,7 +134,8 @@ class SignInForm extends React.Component {
               href="/signup"
               to="/signup"
             >
-              Sign Up
+              &nbsp;
+                  Sign Up
             </Link>
           </p>
         </div>
@@ -112,10 +147,22 @@ class SignInForm extends React.Component {
 SignInForm.contextTypes = {
   router: PropTypes.object.isRequired,
 };
+/**
+ *
+ * @param {object} state
+ * @returns {void}
+ */
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  isLoading: state.isLoading
 });
 
+/**
+ *
+ * @param {object} dispatch
+ *
+ * @returns {void}
+ */
 const mapDispatchToProps = dispatch => ({
   signInUser: (userDetails) => {
     dispatch(getSignIn(userDetails));
