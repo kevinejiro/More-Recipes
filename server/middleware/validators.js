@@ -1,6 +1,9 @@
 import db from '../models';
 
-const { User, Recipe } = db;
+const {
+  User,
+  Recipe
+} = db;
 /**
  * @returns {Object} validInput
  * @param {*} param
@@ -13,7 +16,7 @@ const validateInput = {
    * @param {*} next
    */
   checkForRecipe(req, res, next) {
-    const recipeId = req.params.recipeId ? parseInt(req.params.recipeId) : '';
+    const recipeId = req.params.recipeId ? parseInt(req.params.recipeId, 10) : '';
 
     Recipe
       .findOne({
@@ -22,10 +25,18 @@ const validateInput = {
         }
       })
       .then((recipe) => {
-        if (!recipe) return res.status(404).json({ status: 'fail', message: 'Recipe does not exist' });
+        if (!recipe) {
+          return res.status(404).json({
+            status: 'fail',
+            message: 'Recipe does not exist'
+          });
+        }
         next();
       })
-      .catch(() => res.status(500).json({ status: 'fail', message: 'Invalid recipe id; id must be an number' }));
+      .catch(() => res.status(500).json({
+        status: 'fail',
+        message: 'Invalid recipe id; id must be an number'
+      }));
   },
   /**
    * @returns {Object} user
@@ -34,6 +45,9 @@ const validateInput = {
    * @param {*} next
    */
   checkForUser(req, res, next) {
+    // TODO: Change req to request
+    // change res to response
+    // EVERYWHERE
     User
       .findOne({
         where: {
@@ -42,10 +56,19 @@ const validateInput = {
       })
       .then((user) => {
         if (!user) {
-          res.status(404).json({ status: 'fail', message: 'User does not exist' });
-        } else next();
+          res.status(404).json({
+            status: 'fail',
+            message: 'User does not exist'
+          });
+        } else {
+          req.recoveredUsername = user.username;
+          next();
+        }
       })
-      .catch(() => res.status(500).json({ status: 'fail', message: 'invalid user id; id must be an number' }));
+      .catch(() => res.status(500).json({
+        status: 'fail',
+        message: 'invalid user id; id must be an number'
+      }));
   },
   /**
    * @returns {Object} user
@@ -55,7 +78,12 @@ const validateInput = {
    */
   checkForUsername(req, res, next) {
     const username = (req.body.username && typeof req.body.username === 'string') ? req.body.username.trim() : '';
-    if (!username) { return res.status(400).json({ status: 'fail', message: 'username and password are required' }); }
+    if (!username) {
+      return res.status(400).json({
+        status: 'fail',
+        message: 'username and password are required'
+      });
+    }
     User
       .findOne({
         where: {
@@ -64,7 +92,10 @@ const validateInput = {
       })
       .then((user) => {
         if (!user) {
-          res.status(404).json({ status: 'fail', message: 'Username does not match any account' });
+          res.status(404).json({
+            status: 'fail',
+            message: 'Username does not match any account'
+          });
         } else next();
       });
   }
