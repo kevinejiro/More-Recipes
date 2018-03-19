@@ -1,5 +1,8 @@
 import React from 'react';
 
+/**
+ * @returns {JSX} JSX element
+ */
 const Footer = () => (
   <div
     className="form-group">
