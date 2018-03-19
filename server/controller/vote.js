@@ -1,20 +1,27 @@
 import db from '../models';
 
-const { Vote, Recipe } = db;
+const {
+  Vote,
+  Recipe
+} = db;
 
 const voteCtrl = {
   /**
-     * @returns {Boolean} vote
-     * @param {*} req
-     * @param {*} res
-     * @param {*} next
-     */
+   * @returns {boolean} vote
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   */
   voteRecipe(req, res, next) {
     // POST --> /recipes/:recipeId/vote-:voteType
-    const recipeId = parseInt(req.params.recipeId);
+    const recipeId = parseInt(req.params.recipeId, 10);
 
-    const { voteType } = req.params;
-    const { userId } = req;
+    const {
+      voteType
+    } = req.params;
+    const {
+      userId
+    } = req;
 
     // if votetype is not equal to down and up --> Error !
     if (voteType !== 'down' && voteType !== 'up') {
@@ -26,11 +33,17 @@ const voteCtrl = {
 
     Recipe
       .find({
-        where: { id: recipeId, userId }
+        where: {
+          id: recipeId,
+          userId
+        }
       })
       .then((recipe) => {
         if (recipe) {
-          return res.status(403).json({ success: false, message: 'Cant vote on own recipe' });
+          return res.status(403).json({
+            success: false,
+            message: 'Cant vote on own recipe'
+          });
         }
         // store upvotes as true and downvote as false --> basically convert vote to boolean
         // stores true when upvote and false when downvote
@@ -70,7 +83,11 @@ const voteCtrl = {
             }
 
             return Vote
-              .create({ recipeId, userId, voteType: voteCond })
+              .create({
+                recipeId,
+                userId,
+                voteType: voteCond
+              })
               .then(() => {
                 res.msg = `Recipe ${voteType}voted successfully!`;
                 next();
@@ -85,7 +102,7 @@ const voteCtrl = {
    * @param {*} res
    */
   countVote(req, res) {
-    const recipeId = parseInt(req.params.recipeId);
+    const recipeId = parseInt(req.params.recipeId, 10);
 
 
     Vote
@@ -100,7 +117,10 @@ const voteCtrl = {
 
         Recipe
           .findById(recipeId)
-          .then(recipe => recipe.update({ upvoteCount, downvoteCount })
+          .then(recipe => recipe.update({
+              upvoteCount,
+              downvoteCount
+            })
             .then((recipe) => {
               res.status(200).json({
                 success: true,
@@ -109,7 +129,10 @@ const voteCtrl = {
               });
             }));
       })
-      .catch(() => res.status(500).json({ success: false, message: 'cant vote recipe' }));
+      .catch(() => res.status(500).json({
+        success: false,
+        message: 'cant vote recipe'
+      }));
   }
 };
 export default voteCtrl;
