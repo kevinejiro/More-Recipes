@@ -21,13 +21,13 @@ const RecipeCard = props => (
         href={`/recipes/${props.id}`}
         to={`/recipes/${props.id}`}
       >
-        {props.title}
+        {`${props.title.slice(0, 15)}...`}
       </Link>
     </h5>
     <p
       className="card-text"
     >
-      {props.description}
+      {`${props.description.slice(0, 30)}...`}
     </p>
   </div>
 );

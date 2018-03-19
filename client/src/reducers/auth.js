@@ -1,11 +1,14 @@
 import {
   GET_AUTH,
   GET_AUTH_ERROR,
+  SIGN_IN_AUTH,
+  SIGN_OUT
 } from '../actions/types';
 
 const initialState = {
   isAuthenticated: !!localStorage.getItem('token'),
-  user: JSON.parse(localStorage.getItem('user'))
+  user: JSON.parse(localStorage.getItem('user')) || {},
+  errorMessage: null
 };
 
 /**
@@ -21,6 +24,7 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: true,
+        errorMessage: '',
         user: action.user,
         token: action.token
       };
@@ -29,6 +33,22 @@ const auth = (state = initialState, action) => {
         ...state,
         isAuthenticated: false,
         errorMessage: action.message
+      };
+    case SIGN_IN_AUTH:
+      return {
+        ...state,
+        isAuthenticated: true,
+        errorMessage: '',
+        user: action.user,
+        token: action.token
+      };
+    case SIGN_OUT:
+      return {
+        ...state,
+        isAuthenticated: false,
+        errorMessage: '',
+        user: {},
+        token: ''
       };
     default:
       return state;
