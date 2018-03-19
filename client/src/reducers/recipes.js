@@ -3,18 +3,22 @@ import {
   LOAD_RECIPES_FAILURE,
   GET_SINGLE_RECIPE,
   GET_SINGLE_RECIPE_ERROR,
+  GET_REVIEWS,
+  GET_REVIEWS_ERROR,
 } from '../actions/types';
 
 const initialState = {
   recipes: {
     allrecipes: [],
-    singleRecipe: {
+    oneRecipe: {
       id: 0,
       favourite: 0,
       upvoteCount: 0,
       downvoteCount: 0,
-      reviews: []
-    }
+      reviews: [],
+      User: {}
+    },
+    allReviews: [],
   }
 };
 
@@ -23,6 +27,7 @@ const initialState = {
  *
  * @param {any} [state=initialState.recipes]
  * @param {any} action
+ *
  * @returns {any} any
  */
 const recipes = (state = initialState.recipes, action) => {
@@ -40,10 +45,20 @@ const recipes = (state = initialState.recipes, action) => {
     case GET_SINGLE_RECIPE:
       return {
         ...state,
-        singleRecipe: action.recipe
+        oneRecipe: action.recipe
       };
     case GET_SINGLE_RECIPE_ERROR:
       return {
+        errorMessage: action.message
+      };
+    case GET_REVIEWS:
+      return {
+        ...state,
+        allReviews: action.reviews
+      };
+    case GET_REVIEWS_ERROR:
+      return {
+        ...state,
         errorMessage: action.message
       };
     default:
