@@ -5,12 +5,12 @@ import {
 
 import App from './components/App';
 import IndexPage from './components/pages/IndexPage';
-// import BrowsePage from './components/pages/BrowsePage';
 import SignUp from './components/pages/SignUp';
 import SignIn from './components/pages/SignIn';
 import TopRecipes from './components/topRecipes/TopRecipesPage';
 import RecipePage from './components/recipePage/RecipePage';
 import ProfilePage from './components/profilePageComponent/ProfilePage';
+
 /**
  * @returns {JSX} jsx
  */
@@ -21,11 +21,6 @@ const Main = () => (
       component={IndexPage}
       path="/"
     />
-    {/* <Route
-      exact
-      component={BrowsePage}
-      path="/browse"
-    /> */}
     <Route
       exact
       component={SignUp}
@@ -50,6 +45,11 @@ const Main = () => (
       exact
       component={ProfilePage}
       path="/dashboard"
+    />
+    <Route
+      exact
+      component={ProfilePage}
+      path="/user/:userId"
     />
   </App>
 );

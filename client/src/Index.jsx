@@ -1,7 +1,6 @@
 // import 'raf/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import jwtDecode from 'jwt-decode';
 import {
   BrowserRouter as Router,
   browserHistory,
@@ -15,6 +14,8 @@ import Main from './routes';
 
 import './assets/css/style.scss';
 
+import { setAxiosHeader } from './actions/signIn';
+
 const store = createStore(
   rootReducer,
   compose(
@@ -23,19 +24,9 @@ const store = createStore(
   ),
 );
 
-// if (localStorage.jwtToken) {
-//   const currentTime = Date.now().valueOf() / 1000;
-//   const jwtDecoded = jwtDecode(localStorage.jwtToken);
-//   if (jwtDecoded.exp < currentTime) {
-//     store.dispatch(setCurrentUser({}));
-//     localStorage.removeItem('jwtToken');
-//   } else {
-//     // setAuthorizationToken(localStorage.jwtToken);
-//     store.dispatch(setCurrentUser(jwtDecoded));
-//   }
-// } else {
-//   // store.dispatch(setCurrentUser({}));
-// }
+if (localStorage.token) {
+  setAxiosHeader(localStorage.token);
+}
 
 ReactDOM.render(
   <Provider store={store}>
