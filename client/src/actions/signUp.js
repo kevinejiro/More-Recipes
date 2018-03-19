@@ -9,11 +9,13 @@ import {
   GET_AUTH,
   GET_AUTH_ERROR
 } from '../actions/types';
+
 /**
- *
  *
  * @param {any} user
  * @param {any} token
+ *
+ * @returns {Object} action
  */
 export const getAuth = (user, token) => ({
   type: GET_AUTH,
@@ -21,10 +23,12 @@ export const getAuth = (user, token) => ({
   user,
   token
 });
+
 /**
  *
+ * @param {String} message - Error Message
  *
- * @param {any} message
+ * @returns {Object} action
  */
 export const getAuthError = message => ({
   type: GET_AUTH_ERROR,
@@ -36,15 +40,13 @@ export const getAuthError = message => ({
 /**
  *
  *
- * @param {any} dispatch
- * @returns
+ * @param {Object} userDetails
+ * @returns {Promise} thunk function
  */
 const getSignUp = userDetails => (dispatch) => {
-  console.log('start');
   dispatch(setLoading());
   return axios.post('/api/v1/users/signup', userDetails)
     .then((response) => {
-      console.log('======', response);
       const {
         user,
         token
@@ -57,7 +59,6 @@ const getSignUp = userDetails => (dispatch) => {
       const {
         message
       } = error.response.data;
-      console.log(message);
       dispatch(getAuthError(message));
       dispatch(unsetLoading());
     });

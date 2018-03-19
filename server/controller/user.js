@@ -15,7 +15,6 @@ const userCtrl = {
    * @param {*} res
    */
   createUser(req, res) {
-    console.log('creating user------>>>>>');
     const username = req.body.username ? req.body.username.trim() : '';
     const email = req.body.email ? req.body.email.trim() : '';
     const password = req.body.password ? req.body.password.trim() : '';
@@ -66,7 +65,7 @@ const userCtrl = {
             user
           },
           process.env.SECRET_KEY, {
-            // expiresIn: '60m'
+            expiresIn: '60m'
           }
         );
         res.status(201).json({
@@ -114,7 +113,7 @@ const userCtrl = {
         const token = jwt.sign({
           user
         }, process.env.SECRET_KEY, {
-          // expiresIn: '60m'
+          expiresIn: '60m'
         });
         bcryptjs.compare(password, user.password).then((check) => {
           if (check) {
@@ -160,11 +159,13 @@ const userCtrl = {
         if (recipesCount === 0) {
           return res.status(200).json({
             status: 'pass',
+            username: req.recoveredUsername,
             message: 'User has not posted any recipes',
           });
         }
-        return res.status(200).json({
+        return res.status(202).json({
           success: true,
+          username: req.recoveredUsername,
           message: `${recipesCount} recipes posted`,
           recipes
         });
