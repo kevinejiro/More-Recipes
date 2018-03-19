@@ -60,6 +60,25 @@ class SignUpForm extends React.Component {
     }
   }
 
+  /**
+   *
+   * @param {object} nextProps
+   *
+   * @returns {void} void
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated &&
+      nextProps.auth.errorMessage.length === 0) {
+      this.setState({
+        username: '',
+        email: '',
+        password: '',
+        passwordConfirmation: '',
+      }, () => {
+        this.props.history.push('/dashboard');
+      });
+    }
+  }
 
   /**
    * @returns {JSX} JSX element
@@ -134,7 +153,8 @@ class SignUpForm extends React.Component {
               href="/signin"
               to="/signin"
             >
-              Sign In
+              &nbsp;
+                  Sign In
             </Link>
           </p>
         </div>
@@ -144,11 +164,21 @@ class SignUpForm extends React.Component {
   }
 }
 
-
+/**
+ * @param {Object} state
+ *
+ * @returns {Object} new state
+ */
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
+/**
+ *
+ * @param {any} dispatch
+ *
+ * @returns {void}
+ */
 const mapDispatchToProps = dispatch => ({
   signUpUser: (userDetails) => {
     dispatch(getSignUp(userDetails));
