@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 /**
  *
@@ -22,20 +21,19 @@ function Reviews(props) {
         >
           <Link
             className="d-block text-gray-dark"
-            href="/dashboard"
-            to="/dashboard"
+            href={`/user/${props.User.id}`}
+            to={`/user/${props.User.id}`}
           >
-            {props.username}
+            {props.User.username}
           </Link>
-          {props.reviewText}
+          {props.body}
         </p>
       </div>
 
     </div >
   );
 }
-Reviews.propTypes = {
-  reviewText: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-};
+// Reviews.propTypes = {
+//   recipe: PropTypes.object.isRequired,
+// };
 export default Reviews;
