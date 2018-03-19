@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
 /**
- * @class SignInForm
+ * @class SearchBar
  */
 class SearchBar extends React.Component {
-/**
- *
- * @param {object} props
- */
+
+  /**
+   *
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -27,20 +28,23 @@ class SearchBar extends React.Component {
     });
   }
 
+  /**
+   * @returns {JSX} JSX element
+   */
   render() {
     return (
       <div>
         <form
-          className="form-group"
+          className="form-group search"
           onSubmit={this.onSubmit}>
           <input
-          className="form-control"
-          id="formGroupExampleInput2"
-          onChange={this.onInputChange}
-          placeholder="Search for a recipe"
-          type="text"
-          value={this.state.term}
-        />
+            className="form-control"
+            id="formGroupExampleInput2"
+            onChange={this.onInputChange}
+            placeholder="Search for a recipe"
+            type="text"
+            value={this.state.term}
+          />
         </form>
       </div>
     );
