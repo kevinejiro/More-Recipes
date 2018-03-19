@@ -6,7 +6,12 @@ import {
 const initialState = false;
 
 /**
- * @returns {Object} true
+ *
+ *
+ * @param {any} [state=initialState]
+ * @param {any} action
+ *
+ * @returns {any} true
  */
 const isLoading = (state = initialState, action) => {
   switch (action.type) {

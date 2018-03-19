@@ -15,7 +15,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      initial: 1
     };
   }
   /**
@@ -38,7 +37,7 @@ class App extends React.Component {
           {this.props.children}
           {windowLocation !== '/signup' &&
             windowLocation !== '/signin' &&
-              <Footer />
+            <Footer />
           }
         </div>
       </div >

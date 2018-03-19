@@ -12,3 +12,23 @@ export const GET_SINGLE_RECIPE_ERROR = 'GET_SINGLE_RECIPE_ERROR';
 export const GET_AUTH = 'GET_AUTH';
 
 export const GET_AUTH_ERROR = 'GET_AUTH_ERROR';
+
+export const SIGN_IN_AUTH = 'SIGN_IN_AUTH';
+
+export const SIGN_OUT = 'SIGN_OUT';
+
+export const GET_REVIEWS = 'GET_REVIEWS';
+
+export const GET_REVIEWS_ERROR = 'GET_REVIEWS_ERROR';
+
+export const POST_REVIEW_REQUEST = 'POST_REVIEW_REQUEST';
+
+export const POST_REVIEW_SUCCESS = 'POST_REVIEW_SUCCESS';
+
+export const ADD_RECIPE = 'ADD_RECIPE';
+
+export const ADD_RECIPE_ERROR = 'ADD_RECIPE_ERROR';
+
+export const GET_USER_RECIPES = 'GET_USER_RECIPES';
+
+export const GET_USER_RECIPES_ERROR = 'GET_USER_RECIPES_ERROR';

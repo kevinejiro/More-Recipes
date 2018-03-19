@@ -1,14 +1,12 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import TopRecipesPage from '../topRecipes/TopRecipesPage';
 
 /**
  * IndexPage component
  * @returns {JSX} react element
  */
 const IndexPage = () => (
-  // static displayName = 'IndexPage';
   <div className="text-center" id="messagebox">
     <h1>Welcome to More Recipes</h1>
     <br />

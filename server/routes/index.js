@@ -85,7 +85,6 @@ router.post(
 
 router.get(
   '/recipes/:recipeId/reviews',
-  verifyUserSession,
   validateInput.checkForRecipe,
   reviewCtrl.getReviews
 );
