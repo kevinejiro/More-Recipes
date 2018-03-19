@@ -1,60 +1,45 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import TextField from '../common/TextField';
+import toastr from 'toastr';
+import { connect } from 'react-redux';
 
-const { serverUrl } = process.env;
+import postReview from '../../actions/postReview';
 
 /**
  * @class ReviewForm
  */
 class ReviewForm extends React.Component {
-  /**
-   *
-   * @param {object} props
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      isLoading: false,
-      error: {}
-    };
+  state = {
+    content: '',
   }
+
   onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   }
+
   onSubmit = (event) => {
     event.preventDefault();
-    this.setState({
-      isLoading: true,
-      error: {}
-    });
-    const { hasError, error } =
-      signInCheck(this.state);
-
-    if (hasError) {
-      this.setState({
-        isLoading: false,
-        error
-      });
-    } else {
-      axios.post(`${serverUrl}/users/signin`, this.state)
-        .then((response) => {
-          console.log(response);
-          this.setState({
-            isLoading: false,
-            error: {}
-          });
-        })
-        .catch((errors) => {
-          console.log(errors);
-          this.setState({
-            isLoading: false,
-            error: errors
-          });
-        });
+    if (!this.state.content) {
+      toastr.options = {
+        closeButton: true,
+        extendedTimeOut: '1000',
+        positionClass: 'toast-bottom-right',
+        hideMethod: 'fadeOut'
+      };
+      toastr.error('Review content cannot be empty');
+      return;
     }
+
+    if (!this.props.userIsAuthenticated) {
+      toastr.error('Sign in to post a review');
+      return;
+    }
+
+    const reviewData = {
+      content: this.state.content,
+      recipeId: this.props.recipeId,
+    };
+
+    this.props.postReview(reviewData);
   }
 
   /**
@@ -63,13 +48,18 @@ class ReviewForm extends React.Component {
   render() {
     return (
       <form
-      className="comment">
+        onSubmit={this.onSubmit}
+        className="comment">
         <div className="form-group">
           <textarea
             className="form-control"
             id="recipeComment"
-            placeholder="Review  Recipe"
-            rows="3" />
+            onChange={this.onChange}
+            placeholder="Review Recipe"
+            rows="3"
+            value={this.state.content}
+            name="content"
+          />
         </div>
         <div className="form-group">
           <button className="btn btn-success"
@@ -77,11 +67,28 @@ class ReviewForm extends React.Component {
             Post Review
           </button>
         </div>
-
       </form>
     );
   }
 }
 
-export default ReviewForm;
+/**
+ * @param {any} state
+ *
+ * @returns {Object} props from state
+ */
+const mapStateToProps = state => ({
+  userIsAuthenticated: state.auth.isAuthenticated
+});
+
+/**
+ * 
+ * 
+ * @param {any} dispatch 
+ */
+const mapDispatchToProps = dispatch => ({
+  postReview: reviewData => dispatch(postReview(reviewData))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);
 
