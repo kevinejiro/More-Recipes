@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 function ProfileComponent(props) {
   return (
     <div className="profile-page--sidebar">
-      <div className="card">
+      <div className="card user-profile">
         <div
           className="sidebar--userimg mx-auto d-block"
         >
@@ -21,24 +21,26 @@ function ProfileComponent(props) {
         </div>
         <div className="sidebar--title">
           <div className="sidebar--title-name">
-            {props.Username}
+            {props.username}
           </div>
         </div>
       </div>
       <div
         className="mx-auto text-center"
       >
-        <div className=" mx-auto card button-card">
+        {props.currentUser &&
+          <div className=" mx-auto card button-card">
 
-          <button
-            className="btn add-button"
-            name="add Recipe"
-            onClick={props.handleButtonClick}
-            type="button"
-          >
-            Add Recipe
-          </button>
-        </div>
+            <button
+              className="btn add-button"
+              name="Add Recipe"
+              onClick={props.handleButtonClick}
+              type="button"
+            >
+              Add Recipe
+            </button>
+          </div>
+        }
       </div>
       <div className="card link-menu-card">
         <div className="link-menu">
@@ -58,12 +60,12 @@ function ProfileComponent(props) {
             </li>
             <li
               className={
-                props.currentActionType === 'Fav Recipes' ?
+                props.currentActionType === 'Favourite Recipes' ?
                   'active' : undefined
               }
             >
               <button
-                name="Fav Recipes"
+                name="Favourite Recipes"
                 onClick={props.handleButtonClick}
               >
                 Favourite Recipes
@@ -77,7 +79,8 @@ function ProfileComponent(props) {
 }
 ProfileComponent.propTypes = {
   currentActionType: PropTypes.string.isRequired,
+  currentUser: PropTypes.bool.isRequired,
   handleButtonClick: PropTypes.func.isRequired,
-  Username: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
 };
 export default ProfileComponent;
