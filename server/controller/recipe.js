@@ -22,10 +22,15 @@ const recipeCtrl = {
           id: recipeId
         },
         include: [{
-          model: Review,
-          as: 'reviews',
-          attributes: ['id', 'body', 'userId']
-        }],
+            model: Review,
+            as: 'reviews',
+            attributes: ['id', 'body', 'userId']
+          },
+          {
+            model: User,
+            attributes: ['username', 'fullname']
+          }
+        ],
       })
       .then((recipe) => {
         if (recipe) {

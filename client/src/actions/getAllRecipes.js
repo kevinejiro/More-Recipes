@@ -8,30 +8,40 @@ import {
 import {
   LOAD_RECIPES_SUCCESS,
   LOAD_RECIPES_FAILURE
-} from '../actions/types';
+} from './types';
 
+/**
+ *
+ * @param {Object} recipes
+ *
+ * @returns {Object} action
+ */
 export const allrecipes = recipes => ({
   type: LOAD_RECIPES_SUCCESS,
   recipes
 });
 
+/**
+ *
+ * @param {String} message - Error Message
+ *
+ * @returns {Object} action
+ */
 export const allrecipesError = message => ({
   type: LOAD_RECIPES_FAILURE,
   message
 });
 
 /**
- * 
- * 
- * @param {any} dispatch 
- * @returns 
+ *
+ * @param {Object} dispatch
+ *
+ * @returns {Object} response
  */
 const getAllRecipes = () => (dispatch) => {
-  console.log('======= first');
   dispatch(setLoading());
   return axios.get('/api/v1/recipes')
     .then((response) => {
-      console.log('=======', response.data);
       const {
         recipes
       } = response.data;
@@ -43,7 +53,6 @@ const getAllRecipes = () => (dispatch) => {
       } = error.response.data;
       dispatch(allrecipesError(message));
       dispatch(unsetLoading());
-      console.log('======= sec');
     });
 };
 

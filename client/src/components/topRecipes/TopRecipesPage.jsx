@@ -27,6 +27,21 @@ class TopRecipes extends React.Component {
   componentWillMount() {
     this.props.recipes();
   }
+
+  /**
+   * @returns {void} void
+   */
+  componentDidMount() {
+    document.body.classList.add('in-recipepage');
+  }
+
+  /**
+   * @returns {void} void
+   */
+  componentWillUnmount() {
+    document.body.classList.remove('in-recipepage');
+  }
+
   /**
    * @returns {JSX} JSX element
    */
@@ -42,7 +57,7 @@ class TopRecipes extends React.Component {
       );
     } else {
       recipeList = recipes.map((recipe, i) => (
-        <div className="body-wrapper-content" key={`recipe${i + 1}`}>
+        <div className="" key={`recipe${i + 1}`}>
           <RecipeCard
          {...recipe}
           />
@@ -69,10 +84,21 @@ class TopRecipes extends React.Component {
   }
 }
 
+/**
+ * @param {Object} state
+ *
+ * @returns {Object} new state
+ */
 const mapStateToProps = state => ({
   allRecipes: state.recipes.allrecipes
 });
 
+/**
+ *
+ * @param {any} dispatch
+ *
+ * @returns {void}
+ */
 const mapDispatchToProps = dispatch => ({
   recipes: () => dispatch(getAllRecipes())
 });
