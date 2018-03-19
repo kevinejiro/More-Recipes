@@ -6,19 +6,19 @@ import {
 } from './isLoading';
 
 import {
-  GET_SINGLE_RECIPE,
-  GET_SINGLE_RECIPE_ERROR
+  GET_REVIEWS,
+  GET_REVIEWS_ERROR
 } from '../actions/types';
 
 /**
  *
- * @param {Object} recipe
+ * @param {Object} reviews
  *
  * @returns {Object} action
  */
-export const oneRecipe = recipe => ({
-  type: GET_SINGLE_RECIPE,
-  recipe
+export const allReviews = reviews => ({
+  type: GET_REVIEWS,
+  reviews
 });
 
 /**
@@ -27,8 +27,8 @@ export const oneRecipe = recipe => ({
  *
  * @returns {Object} action
  */
-export const oneRecipeError = message => ({
-  type: GET_SINGLE_RECIPE_ERROR,
+export const allReviewsError = message => ({
+  type: GET_REVIEWS_ERROR,
   message
 });
 
@@ -38,22 +38,22 @@ export const oneRecipeError = message => ({
  * @param {string} id
  * @returns {Promise} thunk function
  */
-const getSingleRecipe = id => (dispatch) => {
+const getAllReviews = id => (dispatch) => {
   dispatch(setLoading());
-  return axios.get(`/api/v1/recipes/${id}`)
+  return axios.get(`/api/v1/recipes/${id}/reviews`)
     .then((response) => {
       const {
-        recipe
+        reviews
       } = response.data;
-      dispatch(oneRecipe(recipe));
+      dispatch(allReviews(reviews));
       dispatch(unsetLoading());
     }).catch((error) => {
       const {
         message
       } = error.response.data;
-      dispatch(oneRecipeError(message));
+      dispatch(allReviewsError(message));
       dispatch(unsetLoading());
     });
 };
 
-export default getSingleRecipe;
+export default getAllReviews;
