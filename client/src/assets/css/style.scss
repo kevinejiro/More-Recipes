@@ -752,9 +752,12 @@ small {
 }
 
 .favourite {
-  color: #dc3545;
   padding-left: 10%;
   margin-right: 5%;
+}
+
+.favourited{
+  color: #dc3545;
 }
 
 .favourite:active {

@@ -20,11 +20,11 @@ const initialState = {
     },
     oneRecipe: {
       id: 0,
-      favourite: 0,
       upvoteCount: 0,
       downvoteCount: 0,
       reviews: [],
-      User: {}
+      User: {},
+      Favorites: []
     },
     allReviews: [],
     searchAction: false,
