@@ -12,7 +12,7 @@ const favoriteCtrl = {
    * @param {*} res
    */
   favoriteRecipe(req, res) {
-    // Post--> api/recipes/:recipeId/favorite
+    // Post--> api/v1/recipes/:recipeId/favorite
     const {
       recipeId
     } = req.params;
@@ -29,6 +29,7 @@ const favoriteCtrl = {
       })
       .then((favorite) => {
         if (favorite) {
+          console.log(favorite);
           return favorite
             .destroy()
             .then(res.status(200).json({
@@ -61,23 +62,29 @@ const favoriteCtrl = {
    * @param {*} res
    */
   getUserFavorites(req, res) {
-    // GET ---> api/users/:userId/favourites
+    // GET ---> api/v1/users/:userId/favourites
     const {
       userId
     } = req.params;
 
+    const limit = parseInt(req.query.limit, 10) || 12;
+    const page = parseInt(req.query.page, 10) || 1;
+
+    const offset = (page - 1) * limit;
+
     Favorite
-      .findAll({
+      .findAndCountAll({
         where: {
           userId
         },
         include: [{
           model: Recipe
-        }]
+        }],
+        limit,
+        offset
       })
-      .then((favorites) => {
-        const favoritesCount = favorites.length;
-        if (favoritesCount === 0) {
+      .then(({ count, rows: favorites }) => {
+        if (count === 0) {
           return res.status(200).json({
             status: 'pass',
             username: req.recoveredUsername,
@@ -85,16 +92,22 @@ const favoriteCtrl = {
           });
         }
         const recipes = favorites.map(fav => fav.Recipe);
-        return res.status(200).json({
+        const lastPage = Math.ceil(count / limit);
+
+        return res.send({
           status: 'pass',
           username: req.recoveredUsername,
-          message: `${favoritesCount} recipes found in favorite`,
-          recipes
+          recipes,
+          pagination: {
+            totalCount: count,
+            lastPage,
+            currentPage: page
+          }
         });
       })
       .catch(() => res.status(500).json({
         status: 'fail',
-        message: 'An error occured! '
+        message: 'An error occured!'
       }));
   }
 };

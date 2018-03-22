@@ -32,8 +32,7 @@ const userCtrl = {
     } else if (email === '') {
       errMsg = 'Email is required';
     } else if (!USERNAME_REGEXP.test(username)) {
-      errMsg = `Username must be between 4 and 
-      15 characters long, with no space between characters`;
+      errMsg = 'Username must be between 4 and 15 characters long, with no space between characters';
     } else if (email.length <= 7 ||
       email.length > 30 ||
       !EMAIL_REGEXP.test(email)) {
@@ -61,11 +60,12 @@ const userCtrl = {
         fullname: req.body.fullname
       })
       .then((user) => {
-        const token = jwt.sign({
+        const token = jwt.sign(
+          {
             user
           },
           process.env.SECRET_KEY, {
-            expiresIn: '60m'
+            expiresIn: '7d'
           }
         );
         res.status(201).json({
@@ -85,9 +85,10 @@ const userCtrl = {
       }));
   },
   /**
-   *@returns {Object} user
    * @param {*} req
    * @param {*} res
+   *
+   * @returns {Object} user
    */
   signIn(req, res) {
     const username = req.body.username ? req.body.username.trim() : '';
@@ -113,7 +114,7 @@ const userCtrl = {
         const token = jwt.sign({
           user
         }, process.env.SECRET_KEY, {
-          expiresIn: '60m'
+          expiresIn: '7d'
         });
         bcryptjs.compare(password, user.password).then((check) => {
           if (check) {
@@ -148,26 +149,41 @@ const userCtrl = {
     const {
       userId
     } = req.params;
+
+    const limit = parseInt(req.query.limit, 10) || 12;
+    const page = parseInt(req.query.page, 10) || 1;
+
+    const offset = (page - 1) * limit;
+
     Recipe
-      .findAll({
+      .findAndCountAll({
         where: {
           userId
-        }
+        },
+        limit,
+        offset
       })
-      .then((recipes) => {
-        const recipesCount = recipes.length;
-        if (recipesCount === 0) {
+      .then(({ count, rows: recipes }) => {
+        if (count === 0) {
           return res.status(200).json({
             status: 'pass',
             username: req.recoveredUsername,
             message: 'User has not posted any recipes',
           });
         }
+
+        const lastPage = Math.ceil(count / limit);
+
         return res.status(202).json({
           success: true,
           username: req.recoveredUsername,
-          message: `${recipesCount} recipes posted`,
-          recipes
+          message: `${count} recipes posted`,
+          recipes,
+          pagination: {
+            totalCount: count,
+            lastPage,
+            currentPage: page
+          }
         });
       })
       .catch(() => res.status(500).json({

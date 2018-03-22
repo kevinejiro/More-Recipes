@@ -7,7 +7,8 @@ import {
 
 import {
   LOAD_RECIPES_SUCCESS,
-  LOAD_RECIPES_FAILURE
+  LOAD_RECIPES_FAILURE,
+  SEARCH_RECIPES_SUCCESS
 } from './types';
 
 /**
@@ -17,8 +18,22 @@ import {
  * @returns {Object} action
  */
 export const allrecipes = recipes => ({
+  type: SEARCH_RECIPES_SUCCESS,
+  payload: recipes
+});
+
+/**
+ *
+ * @param {any} { recipes, pagination }
+ *
+ * @returns {Object} payload
+ */
+export const loadRecipesSucess = ({ recipes, pagination }) => ({
   type: LOAD_RECIPES_SUCCESS,
-  recipes
+  payload: {
+    recipes,
+    pagination
+  }
 });
 
 /**
@@ -38,9 +53,35 @@ export const allrecipesError = message => ({
  *
  * @returns {Object} response
  */
-const getAllRecipes = () => (dispatch) => {
+const getAllRecipes = ({ page, limit }) => (dispatch) => {
   dispatch(setLoading());
-  return axios.get('/api/v1/recipes')
+  return axios.get(`/api/v1/recipes?page=${page}&limit=${limit}`)
+    .then((response) => {
+      dispatch(loadRecipesSucess(response.data));
+      dispatch(unsetLoading());
+    }).catch((error) => {
+      const {
+        message
+      } = error.response.data;
+      dispatch(allrecipesError(message));
+      dispatch(unsetLoading());
+    });
+};
+
+/**
+ *
+ * @param {Object} items
+ *
+ * @returns {Object} response
+ */
+export const searchRecipes = items => (dispatch) => {
+  dispatch(setLoading());
+  return axios.get('/api/v1/recipes', {
+    params: {
+      search: 'recipes',
+      items
+    }
+  })
     .then((response) => {
       const {
         recipes

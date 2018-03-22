@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import sweetalert from 'sweetalert2';
+
 import ReviewBar from './ReviewBar';
 import ReviewForm from './ReviewForm';
 
@@ -31,9 +33,6 @@ class RecipePage extends React.Component {
     this.state = {
       isEditing: false,
     };
-    this.handleVoteBtnClick = this.handleVoteBtnClick.bind(this);
-    this.handleFavouriteBtnClick = this.handleFavouriteBtnClick.bind(this);
-    this.handleDeleteBtnClick = this.handleDeleteBtnClick.bind(this);
   }
 
   /**
@@ -52,19 +51,48 @@ class RecipePage extends React.Component {
   }
 
   handleVoteBtnClick = (voteType) => {
-    this.props.voteRecipe(voteType, this.props.oneRecipe.id);
+    if (this.props.isAuthenticated) {
+      this.props.voteRecipe(voteType, this.props.oneRecipe.id);
+    }
   }
   handleFavouriteBtnClick = () => {
-    this.props.favouriteRecipe(this.props.oneRecipe.id);
+    if (this.props.isAuthenticated) {
+      this.props.favouriteRecipe(this.props.oneRecipe.id);
+    }
   }
   handleDeleteBtnClick = () => {
-    this.props.deleteRecipe(this.props.oneRecipe.id)
-      .then(() => {
-        this.props.history.push('/dashboard');
-      });
+    sweetalert({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false,
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        this.props.deleteRecipe(this.props.oneRecipe.id)
+          .then(() => {
+            this.props.history.push('/dashboard');
+          });
+      } else if (
+        // Read more about handling dismissals
+        result.dismiss === sweetalert.DismissReason.cancel
+      ) {
+        sweetalert(
+          'Cancelled',
+          'Your Recipe is Safe .. for now :)',
+          'error'
+        );
+      }
+    });
   }
   handleEditbtnClick = () => {
-    console.log('this is an edit button click');
     this.setState({
       isEditing: true,
     });
@@ -97,7 +125,7 @@ class RecipePage extends React.Component {
                 <h4>
                   Posted by
                   &nbsp;
-                          <Link
+                  <Link
                     href={`/user/${ID}`}
                     to={`/user/${ID}`}
                   >
@@ -170,7 +198,7 @@ class RecipePage extends React.Component {
                 />
               </div>
             </div>
-          </div>
+            </div>
         }
       </div >
     );
@@ -184,7 +212,7 @@ class RecipePage extends React.Component {
 const mapStateToProps = state => ({
   authUserId: state.auth.user.id,
   oneRecipe: state.recipes.oneRecipe,
-  userIsAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 /**

@@ -1,6 +1,7 @@
 import {
   LOAD_RECIPES_SUCCESS,
   LOAD_RECIPES_FAILURE,
+  SEARCH_RECIPES_SUCCESS,
   GET_SINGLE_RECIPE,
   GET_SINGLE_RECIPE_ERROR,
   GET_REVIEWS,
@@ -9,7 +10,14 @@ import {
 
 const initialState = {
   recipes: {
-    allrecipes: [],
+    allrecipes: {
+      recipes: [],
+      pagination: {
+        totalCount: 0,
+        lastPage: 1,
+        currentPage: 1
+      }
+    },
     oneRecipe: {
       id: 0,
       favourite: 0,
@@ -19,6 +27,7 @@ const initialState = {
       User: {}
     },
     allReviews: [],
+    searchAction: false,
   }
 };
 
@@ -35,12 +44,25 @@ const recipes = (state = initialState.recipes, action) => {
     case LOAD_RECIPES_SUCCESS:
       return {
         ...state,
-        allrecipes: action.recipes
+        allrecipes: {
+          recipes: action.payload.recipes,
+          pagination: action.payload.pagination
+        },
+        searchAction: false,
       };
     case LOAD_RECIPES_FAILURE:
       return {
         ...state,
         errorMessage: action.message
+      };
+    case SEARCH_RECIPES_SUCCESS:
+      return {
+        ...state,
+        allrecipes: {
+          ...state.allrecipes,
+          recipes: action.payload
+        },
+        searchAction: true,
       };
     case GET_SINGLE_RECIPE:
       return {

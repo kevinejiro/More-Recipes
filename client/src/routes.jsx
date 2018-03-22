@@ -11,6 +11,7 @@ import TopRecipes from './components/topRecipes/TopRecipesPage';
 import RecipePage from './components/recipePage/RecipePage';
 import ProfilePage from './components/profilePageComponent/ProfilePage';
 
+import PrivateRoute from './components/common/PrivateRoute';
 /**
  * @returns {JSX} jsx
  */
@@ -41,12 +42,12 @@ const Main = () => (
       component={RecipePage}
       path="/recipes/:recipeId"
     />
-    <Route
+    <PrivateRoute
       exact
       component={ProfilePage}
       path="/dashboard"
     />
-    <Route
+    <PrivateRoute
       exact
       component={ProfilePage}
       path="/user/:userId"

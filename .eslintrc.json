@@ -1,6 +1,12 @@
 {
   "parser": "babel-eslint",
   "extends": "airbnb",
+  "globals": {
+    "shallow": true,
+    "mount": true,
+    "expect": true,
+    "mockStore": true
+  },
   "env": {
     "node": true,
     "es6": true,

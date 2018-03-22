@@ -12,15 +12,15 @@ import {
  *
  * @returns {Promise} thunk function
  */
-const favouriteRecipe = id => () => {
+const favouriteRecipe = id => (dispatch) => {
   const token = localStorage.getItem('token');
 
-  setLoading();
+  dispatch(setLoading());
   return axios.post(`/api/v1/recipes/${id}/favorite`, {
-      headers: {
-        token
-      }
-    })
+    headers: {
+      token
+    }
+  })
     .then((response) => {
       const {
         message
@@ -31,7 +31,8 @@ const favouriteRecipe = id => () => {
         positionClass: 'toast-bottom-right',
         hideMethod: 'fadeOut'
       };
-      toastr.error(`${message}`);
+      toastr.success(`${message}`);
+      dispatch(unsetLoading());
     }).catch((error) => {
       const errorMessage = error.response.data.message;
       toastr.options = {
@@ -41,7 +42,7 @@ const favouriteRecipe = id => () => {
         hideMethod: 'fadeOut'
       };
       toastr.error(`${errorMessage}`);
-      unsetLoading();
+      dispatch(unsetLoading());
     });
 };
 

@@ -16,12 +16,12 @@ import fetchRecipe from './getSingleRecipe';
 const voteRecipe = (voteType, id) => (dispatch) => {
   const token = localStorage.getItem('token');
 
-  setLoading();
+  dispatch(setLoading());
   return axios.post(`/api/v1/recipes/${id}/${voteType}`, null, {
-      headers: {
-        token
-      }
-    })
+    headers: {
+      token
+    }
+  })
     .then((response) => {
       dispatch(fetchRecipe(id));
       const {
@@ -34,6 +34,7 @@ const voteRecipe = (voteType, id) => (dispatch) => {
         hideMethod: 'fadeOut'
       };
       toastr.error(`${message}`);
+      dispatch(unsetLoading());
     }).catch((error) => {
       const errorMessage = error.response.data.message;
       toastr.options = {
@@ -43,7 +44,7 @@ const voteRecipe = (voteType, id) => (dispatch) => {
         hideMethod: 'fadeOut'
       };
       toastr.error(`${errorMessage}`);
-      unsetLoading();
+      dispatch(unsetLoading());
     });
 };
 

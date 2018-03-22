@@ -33,66 +33,66 @@ describe('API Integration Tests', () => {
         email: 'example@user.com',
       };
     });
-    it('return 422 for an empty username ', (done) => {
+    it('return 400 for an empty username ', (done) => {
       const invalidData = Object.assign({}, data);
       invalidData.username = '';
 
       request.post(signupURl)
         .send(invalidData)
         .end((err, res) => {
-          expect(res.status).to.equal(422);
+          expect(res.status).to.equal(400);
           expect(res.body.message).to.equal('Username is required');
           done();
         });
     });
 
-    it('return 422 for an empty email ', (done) => {
+    it('return 400 for an empty email ', (done) => {
       const invalidData = Object.assign({}, data);
       invalidData.email = '  ';
 
       request.post(signupURl)
         .send(invalidData)
         .end((err, res) => {
-          expect(res.status).to.equal(422);
+          expect(res.status).to.equal(400);
           expect(res.body.message).to.equal('Email is required');
           done();
         });
     });
 
-    it('return 422 for an empty password', (done) => {
+    it('return 400 for an empty password', (done) => {
       const invalidData = Object.assign({}, data);
       invalidData.password = ' ';
 
       request.post(signupURl)
         .send(invalidData)
         .end((err, res) => {
-          expect(res.status).to.equal(422);
+          expect(res.status).to.equal(400);
           expect(res.body.message).to.equal('Password is required');
           done();
         });
     });
 
-    it('return 422 for an invalid email', (done) => {
+    it('return 400 for an invalid email', (done) => {
       const invalidData = Object.assign({}, data);
       invalidData.email = 'somerubbish';
 
       request.post(signupURl)
         .send(invalidData)
         .end((err, res) => {
-          expect(res.status).to.equal(422);
+          expect(res.status).to.equal(400);
           expect(res.body.message).to.equal('invalid email address');
           done();
         });
     });
 
-    it('return 422 for a password less than 7 characters', (done) => {
+    it('return 400 for a password less than 7 characters', (done) => {
       const invalidData = Object.assign({}, data);
       invalidData.password = 'key';
 
       request.post(signupURl)
         .send(invalidData)
         .end((err, res) => {
-          expect(res.status).to.equal(422);
+          expect(res.status).to.equal(400);
           expect(res.body.message).to.equal('Password must be at least 7 characters long');
           done();
         });
@@ -104,7 +104,7 @@ describe('API Integration Tests', () => {
       request.post(signupURl)
         .send(invalidData)
         .end((err, res) => {
-          expect(res.status).to.equal(422);
+          expect(res.status).to.equal(400);
           expect(res.body.message).to.equal('Username must be between 4 and 15 characters long, with no space between characters');
           done();
         });

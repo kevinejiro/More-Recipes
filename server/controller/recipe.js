@@ -14,7 +14,7 @@ const recipeCtrl = {
    * @returns {Object} recipe
    */
   retrieveRecipe(request, response) {
-    // get('/recipes/:recipeId'
+    // get('api/v1/recipes/:recipeId'
     const recipeId = parseInt(request.params.recipeId, 10);
     return Recipe
       .find({
@@ -22,14 +22,14 @@ const recipeCtrl = {
           id: recipeId
         },
         include: [{
-            model: Review,
-            as: 'reviews',
-            attributes: ['id', 'body', 'userId']
-          },
-          {
-            model: User,
-            attributes: ['username', 'fullname']
-          }
+          model: Review,
+          as: 'reviews',
+          attributes: ['id', 'body', 'userId']
+        },
+        {
+          model: User,
+          attributes: ['username', 'fullname']
+        }
         ],
       })
       .then((recipe) => {
@@ -61,31 +61,33 @@ const recipeCtrl = {
    * @returns {Object} recipe
    */
   createRecipe(request, response) {
-    // post('/recipes')
+    // post('api/v1/recipes')
     const {
       userId
     } = request;
 
     const title =
       request.body.title ?
-      request.body.title.trim() : '';
+        request.body.title.trim() : '';
     const description =
       request.body.description ?
-      request.body.description.trim() : '';
+        request.body.description.trim() : '';
     const ingredients =
       request.body.ingredients ?
-      request.body.ingredients.trim() : '';
+        request.body.ingredients.trim() : '';
     const direction =
       request.body.direction ?
-      request.body.direction.trim() : '';
+        request.body.direction.trim() : '';
 
     let {
-      imgUrl
+      image
     } = request.body;
 
-    if (!imgUrl) {
-      imgUrl = 'https://res.cloudinary.com/dhgq8vcwi/image/upload/v1519918536/Indomielette.jpg';
+    if (!image) {
+      image = 'https://res.cloudinary.com/dhgq8vcwi/image/upload/v1519918536/Indomielette.jpg';
     }
+
+    console.log(request.body);
 
 
     return Recipe
@@ -95,7 +97,7 @@ const recipeCtrl = {
         description,
         ingredients,
         direction,
-        imgUrl
+        imgUrl: image
       })
       .then(recipe => response.status(201)
         .json({
@@ -115,7 +117,7 @@ const recipeCtrl = {
    * @returns {Object} recipe
    */
   editRecipe(request, response) {
-    // put('/recipes/:recipeId'
+    // put('api/v1/recipes/:recipeId'
     const {
       userId
     } = request;
@@ -210,10 +212,12 @@ const recipeCtrl = {
    * @returns {Object} recipe
    */
   getAllRecipes(request, response) {
-    // get('/recipes'
+    // get('api/v1/recipes'
     let {
       sort,
-      order
+      order,
+      search,
+      items,
     } = request.query;
     if (sort && order) {
       // if sort and order exist convert them to lowercase
@@ -246,14 +250,14 @@ const recipeCtrl = {
             [sortCriteria, orderCriteria]
           ],
           include: [{
-              model: Review,
-              as: 'reviews',
-              attributes: ['id', 'body', 'userId']
-            },
-            {
-              model: User,
-              attributes: ['id', 'username', 'fullname']
-            }
+            model: Review,
+            as: 'reviews',
+            attributes: ['id', 'body', 'userId']
+          },
+          {
+            model: User,
+            attributes: ['id', 'username', 'fullname']
+          }
           ]
         })
         .then((recipes) => {
@@ -280,27 +284,101 @@ const recipeCtrl = {
             status: 'fail',
             message: 'cant get recipes'
           }));
+    } else if (search && items) {
+      search = search.toLowerCase();
+      if (search === 'recipes') {
+        items = items.split(',').join(' ').split(' ');
+        items = items.filter(item => item !== '');
+        const itemsList = items.map(item => ({
+          $or: [{
+            title: {
+              $iLike: `%${item}%`,
+            },
+          }, {
+            ingredients: {
+              $iLike: `%${item}%`,
+            }
+          }]
+        }));
+
+        return Recipe
+          .findAll({
+            where: {
+              $or: itemsList,
+            },
+            include: [{
+              model: Review,
+              as: 'reviews',
+              attributes: ['id', 'body', 'userId']
+            },
+            {
+              model: User,
+              attributes: ['id', 'username', 'fullname']
+            }]
+          })
+          .then((recipes) => {
+            const recipeCount = recipes.length;
+            if (recipeCount === 0) {
+              return response
+                .status(200)
+                .send({
+                  status: 'none',
+                  message: 'No recipes found',
+                  recipes
+                });
+            }
+            response
+              .status(200)
+              .send({
+                status: 'pass',
+                message: `${recipeCount} recipes found`,
+                recipes
+              });
+          })
+          .catch(() => response
+            .status(500)
+            .send({
+              status: 'fail',
+              message: 'cant search for recipes'
+            }));
+      }
+      return response
+        .status(400)
+        .send({
+          status: 'fail',
+          message: 'Invalid search query',
+        });
     }
     // if no query, return all the recipes by upvotes in decending order
+
+    const limit = parseInt(request.query.limit, 10) || 12;
+    const page = parseInt(request.query.page, 10) || 1;
+
+    const offset = (page - 1) * limit;
+
     return Recipe
-      .findAll({
+      .findAndCountAll({
         order: [
           ['upvoteCount', 'DESC']
         ],
         include: [{
-            model: Review,
-            as: 'reviews',
-            attributes: ['id', 'body', 'userId']
-          },
-          {
-            model: User,
-            attributes: ['id', 'username', 'fullname']
-          }
-        ]
+          model: Review,
+          as: 'reviews',
+          attributes: ['id', 'body', 'userId']
+        },
+        {
+          model: User,
+          attributes: ['id', 'username', 'fullname']
+        }
+        ],
+        limit,
+        offset
       })
-      .then((recipes) => {
-        const recipeCount = recipes.length;
-        if (recipeCount === 0) {
+      .then(({
+        count,
+        rows: recipes
+      }) => {
+        if (count === 0) {
           return response
             .status(200)
             .send({
@@ -308,15 +386,22 @@ const recipeCtrl = {
               message: 'No recipes found'
             });
         }
+
+        const lastPage = Math.ceil(count / limit);
+
         response
-          .status(200)
           .send({
             status: 'pass',
-            message: `${recipeCount} recipes found`,
-            recipes
+            message: `${count} recipes found`,
+            recipes,
+            pagination: {
+              totalCount: count,
+              lastPage,
+              currentPage: page
+            }
           });
       })
-      .catch(err => response.status(404).json({
+      .catch(err => response.status(500).json({
         status: 'fail',
         message: err.errors[0].message
       }));

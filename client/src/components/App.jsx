@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import jwtDecode from 'jwt-decode';
+import toastr from 'toastr';
 
 import IndexVideo from './indexPage/IndexVideo';
 import Header from './Header';
-import Footer from './common/Footer';
+import { signoutAction } from '../actions/signOut';
 
 /**
  * @class App
@@ -17,6 +20,39 @@ class App extends React.Component {
     this.state = {
     };
   }
+
+  /**
+   * @returns {void} void
+   */
+  componentDidMount() {
+    this.checkUserStatus();
+  }
+  /**
+ * @returns {void} void
+ */
+  componentWillUpdate() {
+    this.checkUserStatus();
+  }
+  checkUserStatus = () => {
+    const { token } = localStorage;
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const newTime = Date.now().valueOf() / 1000;
+      if (decodedToken.exp < newTime) {
+        toastr.options = {
+          closeButton: true,
+          extendedTimeOut: '1000',
+          positionClass: 'toast-bottom-right',
+          hideMethod: 'fadeOut'
+        };
+        this.props.signOutUser();
+        toastr.error('Login Expired');
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+      }
+    }
+  }
+
   /**
    * @returns {JSX} JSX element
    */
@@ -35,13 +71,21 @@ class App extends React.Component {
         <div id="overlay">
           <Header />
           {this.props.children}
-          {windowLocation !== '/signup' &&
-            windowLocation !== '/signin' &&
-            <Footer />
-          }
         </div>
       </div >
     );
   }
 }
-export default App;
+
+/**
+ *
+ * @param {object} dispatch
+ *
+ * @returns {void}
+ */
+const mapDispatchToProps = dispatch => ({
+  signOutUser: () => {
+    dispatch(signoutAction());
+  }
+});
+export default connect(null, mapDispatchToProps)(App);
