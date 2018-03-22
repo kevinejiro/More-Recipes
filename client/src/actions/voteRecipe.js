@@ -33,7 +33,7 @@ const voteRecipe = (voteType, id) => (dispatch) => {
         positionClass: 'toast-bottom-right',
         hideMethod: 'fadeOut'
       };
-      toastr.error(`${message}`);
+      toastr.success(`${message}`);
       dispatch(unsetLoading());
     }).catch((error) => {
       const errorMessage = error.response.data.message;

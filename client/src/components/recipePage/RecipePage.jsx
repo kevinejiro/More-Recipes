@@ -97,6 +97,16 @@ class RecipePage extends React.Component {
       isEditing: true,
     });
   }
+
+  hasFavorited() {
+    console.log('>>>>>>>>>>>>>', this.props.oneRecipe);
+    const result =
+      this.props.oneRecipe.Favorites.find(fav => fav.userId === this.props.authUserId);
+    if (result) {
+      return true;
+    }
+    return false;
+  }
   /**
    * @returns {JSX} JSX element
    */
@@ -173,7 +183,7 @@ class RecipePage extends React.Component {
                   </i>
                   <i
                     aria-hidden="true"
-                    className="fa fa-heart clickable favourite"
+                    className={`fa fa-heart clickable  favourite ${this.hasFavorited() ? 'favourited' : ''}`}
                     onClick={this.handleFavouriteBtnClick}
                   />
                   {

@@ -6,6 +6,9 @@ import {
   setLoading
 } from './isLoading';
 
+import getSingleRecipe from './getSingleRecipe';
+
+
 /**
  *
  * @param {string} id
@@ -33,6 +36,7 @@ const favouriteRecipe = id => (dispatch) => {
       };
       toastr.success(`${message}`);
       dispatch(unsetLoading());
+      dispatch(getSingleRecipe(id));
     }).catch((error) => {
       const errorMessage = error.response.data.message;
       toastr.options = {

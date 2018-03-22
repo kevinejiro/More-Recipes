@@ -75,6 +75,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'recipeId',
       as: 'reviews'
     });
+    Recipe.hasMany(models.Favorite, { // Associate recipe with Favorite
+      foreignKey: 'recipeId',
+    });
   };
 
   return Recipe;

@@ -3,7 +3,8 @@ import db from '../models';
 const {
   Recipe,
   Review,
-  User
+  User,
+  Favorite
 } = db;
 
 const recipeCtrl = {
@@ -29,6 +30,9 @@ const recipeCtrl = {
         {
           model: User,
           attributes: ['username', 'fullname']
+        },
+        {
+          model: Favorite,
         }
         ],
       })
@@ -51,7 +55,7 @@ const recipeCtrl = {
       })
       .catch(err => response.status(404).json({
         status: 'fail',
-        message: err
+        message: err.message
       }));
   },
   /**
