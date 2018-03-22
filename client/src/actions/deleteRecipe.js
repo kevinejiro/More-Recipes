@@ -12,14 +12,14 @@ import {
  *
  * @returns {Promise} thunk function
  */
-const deleteRecipe = id => () => {
+const deleteRecipe = id => (dispatch) => {
   const token = localStorage.getItem('token');
-  setLoading();
+  dispatch(setLoading());
   return axios.delete(`/api/v1/recipes/${id}`, {
-      headers: {
-        token
-      }
-    })
+    headers: {
+      token
+    }
+  })
     .then((response) => {
       const {
         message
@@ -30,8 +30,8 @@ const deleteRecipe = id => () => {
         positionClass: 'toast-bottom-right',
         hideMethod: 'fadeOut'
       };
-      toastr.error(`${message}`);
-      unsetLoading();
+      toastr.success(`${message}`);
+      dispatch(unsetLoading());
     })
     .catch((error) => {
       const errorMessage = error.response.data.message;
@@ -42,6 +42,7 @@ const deleteRecipe = id => () => {
         hideMethod: 'fadeOut'
       };
       toastr.error(`${errorMessage}`);
+      dispatch(unsetLoading());
     });
 };
 

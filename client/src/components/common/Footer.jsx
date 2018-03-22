@@ -6,7 +6,7 @@ import React from 'react';
 const Footer = () => (
   <div
     className="form-group">
-    <footer className="text-muted">
+    <footer>
       <div className="container">
         <p>&copy; 2017 More-Recipes Inc</p>
       </div>

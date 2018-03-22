@@ -24,7 +24,12 @@ module.exports = {
     new ExtractTextPlugin('./style.css'),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
-      'process.env.SERVER_URL': JSON.stringify('api/v1')
+      'process.env.SERVER_URL': JSON.stringify('api/v1'),
+      // 'process.env.FIREBASE_APIKEY': process.env.FIREBASE_APIKEY,
+      // 'process.env.FIREBASE_AUTHDOMAIN': process.env.FIREBASE_AUTHDOMAIN,
+      // 'process.env.FIREBASE_PROJECTID': process.env.FIREBASE_PROJECTID,
+      // 'process.env.FIREBASE_STORAGEBUCKET': process.env.FIREBASE_STORAGEBUCKET,
+      // 'process.env.FIREBASE_MESSENGERID': process.env.FIREBASE_MESSENGERID
     }),
     new webpack.optimize.UglifyJsPlugin({
       minimize: true,

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import toastr from 'toastr';
+import ReactPaginate from 'react-paginate';
 
 import ProfileComponent from './ProfileComponent';
 import RecipeComponent from './RecipeComponent';

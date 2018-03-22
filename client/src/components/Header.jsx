@@ -25,8 +25,40 @@ class Header extends React.Component {
     super(props);
 
     this.state = {
-      isOpen: false
+      isOpen: false,
     };
+  }
+  /**
+   *
+   */
+  componentDidMount() {
+    window.addEventListener('scroll', this.scrollAction);
+  }
+  /**
+   *
+   */
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.scrollAction);
+  }
+
+  getScrollY = () => {
+    let scrOfY = 0;
+    if (typeof (window.pageYOffset) === 'number') {
+      scrOfY = window.pageYOffset;
+    } else if (document.body && document.body.scrollTop) {
+      scrOfY = document.body.scrollTop;
+    }
+    return scrOfY;
+  }
+  /**
+   *
+   */
+  scrollAction = () => {
+    if (this.getScrollY() >= 5) {
+      document.getElementsByTagName('nav')[0].classList.add('with-scroll');
+    } else {
+      document.getElementsByTagName('nav')[0].classList.remove('with-scroll');
+    }
   }
   toggle = () => {
     this.setState({
@@ -146,7 +178,9 @@ class Header extends React.Component {
     );
   }
 }
-
+Header.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
 const mapStateToProps = state => ({
   authenticated: state.auth.isAuthenticated,
   user: state.auth.user

@@ -13,20 +13,21 @@ import {
  * @param {any} recipeData
  * @returns {Promise} thunk function
  */
-const addRecipe = recipeData => () => {
+const addRecipe = recipeData => (dispatch) => {
   const userToken = localStorage.getItem('token');
-  setLoading();
+  dispatch(setLoading());
   return axios.post('/api/v1/recipes', {
     title: recipeData.title,
     description: recipeData.description,
     ingredients: recipeData.ingredients,
     direction: recipeData.direction,
+    image: recipeData.image
   }, {
     headers: {
       token: userToken
     }
   }).then(() => {
-    unsetLoading();
+    dispatch(unsetLoading());
   }).catch((error) => {
     const errorMessage = error.response.data.message;
     toastr.options = {
@@ -36,7 +37,7 @@ const addRecipe = recipeData => () => {
       hideMethod: 'fadeOut'
     };
     toastr.error(`${errorMessage}`);
-    unsetLoading();
+    dispatch(unsetLoading());
   });
 };
 

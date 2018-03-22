@@ -9,25 +9,27 @@ import {
 
 /**
  *
- *
  * @param {any} recipeData
+ * @param {any} id
+ *
  * @returns {Promise} thunk function
  */
-const editRecipe = (recipeData, id) => () => {
+const editRecipe = (recipeData, id) => (dispatch) => {
   const userToken = localStorage.getItem('token');
 
-  setLoading();
+  dispatch(setLoading());
   return axios.put(`/api/v1/recipes/${id}`, {
     title: recipeData.title,
     description: recipeData.description,
     ingredients: recipeData.ingredients,
     direction: recipeData.direction,
+    imgUrl: recipeData.image
   }, {
     headers: {
       token: userToken
     }
   }).then(() => {
-    unsetLoading();
+    dispatch(unsetLoading());
   }).catch((error) => {
     const errorMessage = error.response.data.message;
     toastr.options = {
@@ -37,7 +39,7 @@ const editRecipe = (recipeData, id) => () => {
       hideMethod: 'fadeOut'
     };
     toastr.error(`${errorMessage}`);
-    unsetLoading();
+    dispatch(unsetLoading());
   });
 };
 

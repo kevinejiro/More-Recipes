@@ -36,6 +36,15 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['client/build']),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.SERVER_URL': JSON.stringify('api/v1'),
+      // 'process.env.FIREBASE_APIKEY': process.env.FIREBASE_APIKEY,
+      // 'process.env.FIREBASE_AUTHDOMAIN': process.env.FIREBASE_AUTHDOMAIN,
+      // 'process.env.FIREBASE_PROJECTID': process.env.FIREBASE_PROJECTID,
+      // 'process.env.FIREBASE_STORAGEBUCKET': process.env.FIREBASE_STORAGEBUCKET,
+      // 'process.env.FIREBASE_MESSENGERID': process.env.FIREBASE_MESSENGERID
+    }),
     new HtmlWebpackPlugin({
       title: 'More Recipes',
       template: './client/index.html',
@@ -55,86 +64,86 @@ module.exports = {
   ],
   module: {
     rules: [{
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: [{
-          loader: 'style-loader',
-        }, {
-          loader: 'css-loader',
-          options: {
-            sourceMap: true,
-          },
-        }, {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          },
-        }],
-      },
-      {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
-      },
-      {
-        test: /\.(png|jpg|gif|ico)$/,
-        exclude: /node_modules/,
-        use: [
-          'file-loader',
-        ],
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf|svg|mp4)$/,
-        exclude: /node_modules/,
-        use: [
-          'file-loader',
-        ],
-      },
-      {
-        test: /\.jsx?$/,
-        include: [
-          path.join(__dirname, 'client'),
-          path.join(__dirname, 'server/middleware'),
-        ],
-        loader: 'babel-loader',
-        exclude: [/node_modules/, 'test'],
-        query: {
-          cacheDirectory: true,
-          presets: ['react', 'es2015'],
-          plugins: [
-            [
-              'transform-class-properties',
-              {
-                spec: true
-              }
-            ]
-          ]
+      test: /\.scss$/,
+      exclude: /node_modules/,
+      use: [{
+        loader: 'style-loader',
+      }, {
+        loader: 'css-loader',
+        options: {
+          sourceMap: true,
         },
-      },
-      {
-        test: /\.js$/,
-        include: [
-          path.join(__dirname, 'client'),
-          path.join(__dirname, 'server/helpers'),
-        ],
-        loader: 'babel-loader',
-        exclude: [/node_modules/, 'test'],
-        query: {
-          cacheDirectory: true,
-          presets: ['react', 'es2015'],
-          plugins: [
-            [
-              'transform-class-properties',
-              {
-                spec: true
-              }
-            ]
-          ]
+      }, {
+        loader: 'sass-loader',
+        options: {
+          sourceMap: true,
         },
+      }],
+    },
+    {
+      test: /\.css$/,
+      exclude: /node_modules/,
+      use: [
+        'style-loader',
+        'css-loader',
+      ],
+    },
+    {
+      test: /\.(png|jpg|gif|ico)$/,
+      exclude: /node_modules/,
+      use: [
+        'file-loader',
+      ],
+    },
+    {
+      test: /\.(woff|woff2|eot|ttf|otf|svg|mp4)$/,
+      exclude: /node_modules/,
+      use: [
+        'file-loader',
+      ],
+    },
+    {
+      test: /\.jsx?$/,
+      include: [
+        path.join(__dirname, 'client'),
+        path.join(__dirname, 'server/middleware'),
+      ],
+      loader: 'babel-loader',
+      exclude: [/node_modules/, 'test'],
+      query: {
+        cacheDirectory: true,
+        presets: ['react', 'es2015'],
+        plugins: [
+          [
+            'transform-class-properties',
+            {
+              spec: true
+            }
+          ]
+        ]
       },
+    },
+    {
+      test: /\.js$/,
+      include: [
+        path.join(__dirname, 'client'),
+        path.join(__dirname, 'server/helpers'),
+      ],
+      loader: 'babel-loader',
+      exclude: [/node_modules/, 'test'],
+      query: {
+        cacheDirectory: true,
+        presets: ['react', 'es2015'],
+        plugins: [
+          [
+            'transform-class-properties',
+            {
+              spec: true
+            }
+          ]
+        ]
+      },
+    },
     ],
   },
 };

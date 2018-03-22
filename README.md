@@ -12,7 +12,7 @@ A platform for users to share their awesome and exciting recipes ideas with the 
 <br />
 <br />
 
-<img width="1440" alt="More-recipes-screenshot" src="">
+<img width="1440" alt="More-recipes-screenshot" src="./client/src/assets/img/more-recipes.jpg">
 <br />
 
 # Table of Contents
@@ -26,7 +26,6 @@ A platform for users to share their awesome and exciting recipes ideas with the 
 - [Express Routes](#express-routes)
 - [License](#license)
 - [FAQ](#faqs)
-- [Current state](#current-state)
 
 ## Getting Started
 This is a javascript application built with [**Express**](https://expressjs.com/) framework on the nodejs platform. Authentication of users is done via [**JSON Web Tokens**](https://jwt.io/).
@@ -55,7 +54,7 @@ This is a javascript application built with [**Express**](https://expressjs.com/
 
 1. Install [**Node JS**](https://nodejs.org/en/).
 1. Install [**Postgres**](https://www.postgresql.org/) .
-1. Clone the [**repository here**](https://github.com/kevinejiro/More-Recipes.git)
+1. To Clone the Run `npm clone https://github.com/kevinejiro/More-Recipes.git`
 1. [**cd**] into the root of the **project directory**.
 1. Run `npm install` on the terminal to install Dependecies
 1. Install sequelize-cli, Create Postgresql database, Navigate to server directory and run migrations:
@@ -64,12 +63,12 @@ npm install -g seqeulize-cli
 cd server
 sequelize db:migrate
 ```
-5. Create a `.env` file in the root directory of the application. Use a different database for your testing and development. Example of the content of a .env file is shown in the .env.sample
+5. Create a **.env** file in the root directory of the application. Use a different database for your testing and development. Example of the content of a .env file is shown in the .env.sample
 
 6. Start the application:
 **_Different Build Environment_**
 
-**Development**
+**Run Development Build**
 ```
 npm run start:dev
 npm run build
@@ -86,9 +85,9 @@ npm run build
 Sever side tests - Run `npm test` on the terminal while within the **project root directory**.
 Client side tests - Run `npm run test:client` on the terminal while within the **project root directory**.
 
-Server side testing is achieved through use of `chai-http`, `mocha` and `chai` packages. `chai-http` is used to make requests to the api and `mocha` is the testing framework and `chai` is the exception library. They will both be installed when you run `npm install` and the tests will run when you run `npm test`.
+Server side testing is achieved through use of **chai-http**, **mocha** and **chai** packages. **chai-http** is used to make requests to the api and **mocha** is the testing framework and **chai** is the exception library. They will both be installed when you run `npm install` and the tests will run when you run `npm test`.
 
-Client side testing is achieved through the use of `jest` package. `jest` is used to test javascript code in React applications.
+Client side testing is achieved through the use of **jest** package. **jest** is used to test javascript code in React applications.
 
 
 
@@ -120,12 +119,12 @@ More Recipes consists of the following features:
 
 ## Models
 
-Five models are defined: `User`, `Recipe`,`Favorite`,`Review`, and `Vote`. `Recipe` must have a unique title on their creation. A `User` can create a `Recipe`. The routes are defined under `models/index`.
+Five models are defined: **User**, **Recipe**, **Favorite**,**Review**, and **Vote**. **Recipe** must have a unique title on their creation. A **User** can create a **Recipe**. The routes are defined under **models/index**.
 
 
 ## Express Routes
 
-Api endpoints were created using `express` router. The routes are defined under `server/routes`.  
+Api endpoints were created using **express** router. The routes are defined under **server/routes**.  
 
 ### Questions
 For more details contact ejiro.ogidigbo@andela.com
@@ -149,6 +148,4 @@ This project is authored by **Ejiro Ogidigbo** (ejiro.ogidigbo@andela.com) and i
 
 ## FAQ
 See the More Recipes wiki
-
-## Current state
 

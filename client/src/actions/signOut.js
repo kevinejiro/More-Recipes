@@ -7,7 +7,7 @@ import {
  *
  * @returns {void}
  */
-const signout = () => ({
+export const signoutAction = () => ({
   type: SIGN_OUT
 });
 
@@ -19,7 +19,7 @@ const signout = () => ({
 const signOut = () => (dispatch) => {
   localStorage.removeItem('user');
   localStorage.removeItem('token');
-  dispatch(signout());
+  dispatch(signoutAction());
   toastr.options = {
     closeButton: true,
     extendedTimeOut: '1000',

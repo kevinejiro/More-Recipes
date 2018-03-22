@@ -1,53 +1,27 @@
-import React, { Component } from 'react';
-
+import React from 'react';
+import TextField from './TextField';
 /**
- * @class SearchBar
+ *
+ * @param {object} props
+ *
+ * @returns {JSX} JSX Component
  */
-class SearchBar extends React.Component {
-
-  /**
-   *
-   * @param {object} props
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: ''
-    };
-    this.onInputChange = this.onInputChange.bind(this);
-  }
-  onInputChange = (event) => {
-    console.log(event.target.value);
-    this.setState({ term: event.target.value });
-  }
-  onSubmit = (event) => {
-    event.preventDefault();
-    this.setState({
-      isLoading: true,
-      error: {}
-    });
-  }
-
-  /**
-   * @returns {JSX} JSX element
-   */
-  render() {
-    return (
-      <div>
-        <form
-          className="form-group search"
-          onSubmit={this.onSubmit}>
-          <input
-            className="form-control"
-            id="formGroupExampleInput2"
-            onChange={this.onInputChange}
-            placeholder="Search for a recipe"
-            type="text"
-            value={this.state.term}
-          />
-        </form>
-      </div>
-    );
-  }
+function SearchBar(props) {
+  return (
+    <div>
+      <form
+        className="form-group search"
+        onSubmit={props.onSubmit}>
+        <TextField
+          autoComplete="off"
+          field="searchTerm"
+          handleChange={props.handleSearch}
+          label="Search for a recipe"
+          textFieldClass="none"
+          value={props.searchTerm}
+        />
+      </form>
+    </div>
+  );
 }
 export default SearchBar;

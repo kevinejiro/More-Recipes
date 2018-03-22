@@ -1,6 +1,8 @@
 import React from 'react';
 import toastr from 'toastr';
+import firebase from 'firebase';
 import { connect } from 'react-redux';
+import FileUploader from 'react-firebase-file-uploader';
 
 import editRecipe from '../../actions/editRecipe';
 
@@ -16,6 +18,42 @@ class EditRecipeForm extends React.Component {
     description: '',
     ingredients: '',
     direction: '',
+    image: '',
+    isUploading: false,
+    progress: 0,
+  }
+
+  handleUploadStart = () => {
+    this.setState({ isUploading: true, progress: 0, });
+  }
+
+  handleProgress = (progress) => {
+    this.setState({ progress });
+  }
+
+  handleUploadSuccess = (filename) => {
+    firebase
+      .storage()
+      .ref('images')
+      .child(filename)
+      .getDownloadURL()
+      .then((url) => {
+        this.setState({
+          image: url,
+          progress: 100,
+          isUploading: false,
+        });
+      });
+  }
+  handleUploadError = (error) => {
+    this.setState({ isUploading: false });
+    toastr.options = {
+      closeButton: true,
+      extendedTimeOut: '1000',
+      positionClass: 'toast-bottom-right',
+      hideMethod: 'fadeOut'
+    };
+    toastr.error(error);
   }
 
   /**
@@ -62,6 +100,7 @@ class EditRecipeForm extends React.Component {
       description: this.state.description,
       direction: this.state.direction,
       ingredients: this.state.ingredients,
+      image: this.state.image
     };
     const { id } = this.props.oneRecipe;
 
@@ -146,11 +185,16 @@ class EditRecipeForm extends React.Component {
         </div>
         <div
           className="form-group">
-          <input
-            aria-describedby="fileHelp"
-            className="form-control-file"
-            id="exampleInputFile"
-            type="file" />
+          <FileUploader
+            accept="image/*"
+            name="image"
+            onProgress={this.handleProgress}
+            onUploadError={this.handleUploadError}
+            onUploadStart={this.handleUploadStart}
+            onUploadSuccess={this.handleUploadSuccess}
+            randomizeFilename
+            storageRef={firebase.storage().ref('images')}
+          />
         </div>
         <button
           className="btn btn-primary app-btn"

@@ -18,7 +18,7 @@ const postReview = reviewData => (dispatch) => {
   const id = reviewData.recipeId;
   const token = localStorage.getItem('token');
 
-  setLoading();
+  dispatch(setLoading());
   return axios.post(`/api/v1/recipes/${id}/reviews`, {
     content: reviewData.content
   }, {
@@ -27,7 +27,7 @@ const postReview = reviewData => (dispatch) => {
     }
   }).then(() => {
     dispatch(getAllReviews(id));
-    unsetLoading();
+    dispatch(unsetLoading());
   }).catch((error) => {
     const errorMessage = error.response.data.message;
     toastr.options = {
@@ -37,7 +37,7 @@ const postReview = reviewData => (dispatch) => {
       hideMethod: 'fadeOut'
     };
     toastr.error(`Could not add review ${errorMessage}`);
-    unsetLoading();
+    dispatch(unsetLoading());
   });
 };
 

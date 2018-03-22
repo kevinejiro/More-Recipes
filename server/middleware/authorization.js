@@ -19,7 +19,8 @@ const verifyUserSession = (req, res, next) => {
       if (err.name === 'TokenExpiredError') {
         return res.status(401).json({
           status: 'fail',
-          message: 'Session has expired, Please sign-in again'
+          message: 'Session has expired, Please sign-in again',
+          token: null
         });
       }
       return res.status(401).json({
