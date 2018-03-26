@@ -1,0 +1,950 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "More-recipes",
+    "description": "TODO: Add Description",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://more-recipesv1.herokuapp.com/api/v1",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/recipes/{recipeId}": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Get a single recipe",
+        "description": "",
+        "operationId": "GetASingleRecipe",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          },
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "ID of recipe to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "example": "56"
+            },
+            "example": "56"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "delete": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Delete a recipe",
+        "description": "",
+        "operationId": "DeleteARecipe",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          },
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "ID of recipe to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "example": "56"
+            },
+            "example": "56"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Get all recipes",
+        "description": "",
+        "operationId": "GetAllRecipes",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Welcome page",
+        "description": "",
+        "operationId": "WelcomePage",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/signup": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Sign up a user",
+        "description": "",
+        "operationId": "SignUpAUser",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": [
+                  "username",
+                  "password",
+                  "email",
+                  "passwordConfirmation"
+                ],
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "kevinmana"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "magicme"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "kevinmana@gmail.com"
+                  },
+                  "passwordConfirmation": {
+                    "type": "string",
+                    "example": "magicme"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/signin": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Sign in a user",
+        "description": "",
+        "operationId": "SignInAUser",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": [
+                  "username",
+                  "password",
+                  "email"
+                ],
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "kevinmana"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "magicme"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "kevinmana@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/{userId}/recipes": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Get user recipes",
+        "description": "",
+        "operationId": "GetUserRecipes",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "example": "26"
+            },
+            "example": "26"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}": {
+      "put": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Edit a recipe",
+        "description": "",
+        "operationId": "EditARecipe",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          },
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "ID of recipe to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "example": "56"
+            },
+            "example": "56"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": [
+                  "title",
+                  "description",
+                  "ingredients",
+                  "direction",
+                  "imgUrl"
+                ],
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Yhhhhhhhhh"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "this is a very sweet dish"
+                  },
+                  "ingredients": {
+                    "type": "string",
+                    "example": "Effo, Egusi, plantain, groundnut"
+                  },
+                  "direction": {
+                    "type": "string",
+                    "example": "Take all the ingredients and put them in a pot.\nstir for an hour and serve raw !!!. "
+                  },
+                  "imgUrl": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/reviews": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Get all reviews for a recipe",
+        "description": "",
+        "operationId": "GetAllReviewsForARecipe",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          },
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "ID of recipe to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "example": "56"
+            },
+            "example": "56"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Add a review",
+        "description": "",
+        "operationId": "AddAReview",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          },
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "ID of recipe to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "example": "56"
+            },
+            "example": "56"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": [
+                  "content"
+                ],
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "example": "hey there .. nice recipe"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/favorite": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Add a recipe to favorites list",
+        "description": "",
+        "operationId": "AddARecipeToFavoritesList",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          },
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "ID of recipe to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "example": "56"
+            },
+            "example": "56"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/{userId}/favorites": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Get all user favorites",
+        "description": "",
+        "operationId": "GetAllUserFavorites",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of the user",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "example": "26"
+            },
+            "example": "26"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/vote-up": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Up-vote a recipe",
+        "description": "TODO: Add Description",
+        "operationId": "UpVote a recipe",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          },
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "ID of recipe to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "example": "56"
+            },
+            "example": "56"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/vote-down": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "Down-vote a recipe",
+        "description": "TODO: Add Description",
+        "operationId": "DownVote a recipe",
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "application/x-www-form-urlencoded"
+            },
+            "example": "application/x-www-form-urlencoded"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+            },
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjo5LCJmdWxsbmFtZSI6bnVsbCwidXNlcm5hbWUiOiJrZXZpbmVqaXJvIiwiZW1haWwiOiJLZXZpbmVqaXJvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJGxoQktRVDkyU3VSM3NEZ21nWWJFcC5lMWV3RS5HMmVmdWlGbTd4YjNPVkVPbllNdmMxQ1RtIiwiY3JlYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIiwidXBkYXRlZEF0IjoiMjAxOC0wMy0xMlQwNToxMToxOC41OTRaIn0sImlhdCI6MTUyMDkwMTA3MX0.uKf_vz4R1vNFwgiVdctB6VEnC3ZbjjPAcf5jKEbuAls"
+          },
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "ID of recipe to return",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "example": "56"
+            },
+            "example": "56"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    }
+  }
+}
