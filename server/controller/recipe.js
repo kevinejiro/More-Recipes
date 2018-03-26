@@ -91,9 +91,6 @@ const recipeCtrl = {
       image = 'https://res.cloudinary.com/dhgq8vcwi/image/upload/v1519918536/Indomielette.jpg';
     }
 
-    console.log(request.body);
-
-
     return Recipe
       .create({
         userId,
@@ -145,6 +142,7 @@ const recipeCtrl = {
             description: request.body.description || recipe.description,
             ingredients: request.body.ingredients || recipe.ingredients,
             direction: request.body.direction || recipe.direction,
+            imgUrl: request.body.imgUrl || recipe.imgUrl
           })
           .then(returnedRecipe => response
             .status(200)
