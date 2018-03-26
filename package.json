@@ -13,7 +13,7 @@
     "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register server/test/test.js",
     "test:client": "jest ./client/__tests__/**/** --coverage",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "build": "node ./node_modules/babel-cli/bin/babel.js -d ./dist ./server",
+    "build": "node ./node_modules/babel-cli/bin/babel.js -d ./dist ./server --copy-files",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
     "migrate": "node ./node_modules/sequelize-cli/bin/sequelize db:migrate",
     "migrate:undo": "sequelize db:migrate:undo:all",

@@ -29,13 +29,12 @@ router.post(
 );
 // signin
 
-
 router.post(
   '/recipes',
   verifyUserSession,
   recipeCtrl.createRecipe
 );
-// post a recipes
+// post a recipe
 
 router.get(
   '/recipes/:recipeId',
@@ -74,7 +73,6 @@ router.put(
 );
 // edit a recipe
 
-
 router.post(
   '/recipes/:recipeId/reviews',
   verifyUserSession,
@@ -89,7 +87,6 @@ router.get(
   reviewCtrl.getReviews
 );
 // get reviews of a recipe;
-
 
 router.post(
   '/recipes/:recipeId/favorite',
@@ -106,7 +103,6 @@ router.get(
   favoriteCtrl.getUserFavorites
 );
 // get all favourites
-
 
 router.post(
   '/recipes/:recipeId/vote-:voteType',
