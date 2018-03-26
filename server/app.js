@@ -2,20 +2,21 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path';
-
+import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 
 import router from './routes/index';
+import swaggerDocument from './converted.json';
+
 
 dotenv.config();
 
 // Set up the express app
 const app = express();
 
-// process.env.SECRET_KEY = 'MischiefManage';
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors());
 
 // Log requests to the console.
