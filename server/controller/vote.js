@@ -118,9 +118,9 @@ const voteCtrl = {
         Recipe
           .findById(recipeId)
           .then(recipe => recipe.update({
-              upvoteCount,
-              downvoteCount
-            })
+            upvoteCount,
+            downvoteCount
+          })
             .then((recipe) => {
               res.status(200).json({
                 success: true,

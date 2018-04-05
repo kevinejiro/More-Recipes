@@ -1,11 +1,17 @@
+sudo: required
 language: node_js
 node_js:
  - "6.11.2"
 branches:
   only:
     - develop
+services:
+  - postgresql
+before_script:
+  - createdb more-recipes-test --username=postgres
+  - sequelize db:migrate
 script:
- - npm run test
+ - npm run test:server
 env:
   - NODE_ENV=test
 after_success:
