@@ -26,7 +26,7 @@ export const getUserRecipes = userRecipes => ({
  *
  * @returns {Object} message
  */
-const getUserRecipesError = message => ({
+export const getUserRecipesError = message => ({
   type: GET_USER_RECIPES_ERROR,
   message
 });
@@ -38,8 +38,13 @@ const getUserRecipesError = message => ({
  * @returns {Object} response
  */
 const fetchUserRecipes = ID => (dispatch) => {
+  const userToken = localStorage.getItem('token');
   dispatch(setLoading());
-  return axios.get(`/api/v1/users/${ID}/recipes`)
+  return axios.get(`/api/v1/users/${ID}/recipes`, {
+    headers: {
+      token: userToken
+    }
+  })
     .then((response) => {
       const {
         data

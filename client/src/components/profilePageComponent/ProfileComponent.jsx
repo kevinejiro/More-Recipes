@@ -33,6 +33,7 @@ function ProfileComponent(props) {
 
             <button
               className="btn add-button"
+              id="Add-Recipe"
               name="Add Recipe"
               onClick={props.handleButtonClick}
               type="button"
@@ -52,6 +53,7 @@ function ProfileComponent(props) {
               }
             >
               <button
+                id="My-Recipes"
                 name="My Recipes"
                 onClick={props.handleButtonClick}
               >
@@ -65,6 +67,7 @@ function ProfileComponent(props) {
               }
             >
               <button
+                id="Favourite-Recipes"
                 name="Favourite Recipes"
                 onClick={props.handleButtonClick}
               >
@@ -81,6 +84,6 @@ ProfileComponent.propTypes = {
   currentActionType: PropTypes.string.isRequired,
   currentUser: PropTypes.bool.isRequired,
   handleButtonClick: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
+  username: PropTypes.string,
 };
 export default ProfileComponent;

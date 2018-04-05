@@ -16,7 +16,7 @@ import signOut from '../actions/signOut';
 /**
  * @class Header
  */
-class Header extends React.Component {
+export class Header extends React.Component {
   /**
    *
    * @param {object} props
@@ -27,6 +27,7 @@ class Header extends React.Component {
     this.state = {
       isOpen: false,
     };
+    this.scrollAction = this.scrollAction.bind(this);
   }
   /**
    *
@@ -53,7 +54,7 @@ class Header extends React.Component {
   /**
    *
    */
-  scrollAction = () => {
+  scrollAction() {
     if (this.getScrollY() >= 5) {
       document.getElementsByTagName('nav')[0].classList.add('with-scroll');
     } else {
@@ -102,6 +103,7 @@ class Header extends React.Component {
                     to="/signin">
                     <button
                       className="btn btn-danger"
+                      id="signin"
                       type="button"
                     >
                       Sign In
@@ -118,6 +120,7 @@ class Header extends React.Component {
                     to="/signup">
                     <button
                       className="btn btn-danger"
+                      id="signup"
                       type="button"
                     >
                       Sign Up
@@ -134,6 +137,7 @@ class Header extends React.Component {
                     to="/toprecipes">
                     <button
                       className="btn btn-danger"
+                      id="recipes"
                       type="button"
                     >
                       Recipes
@@ -149,6 +153,7 @@ class Header extends React.Component {
                     to="/dashboard">
                     <button
                       className="btn btn-danger"
+                      id="dashboard"
                       type="button"
                     >
                       Dashboard
@@ -162,6 +167,7 @@ class Header extends React.Component {
                   <NavLink>
                     <button
                       className="btn btn-danger"
+                      id="signout"
                       onClick={() => { this.props.signOutUser(); }}
                       type="button"
                     >
@@ -190,7 +196,7 @@ const mapStateToProps = state => ({
  *
  * @param {any} dispatch
  */
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   signOutUser: () => {
     dispatch(signOut());
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import Reviews from './Reviews';
 
 import getAllReviews from '../../actions/getAllReviews';
@@ -8,7 +8,7 @@ import getAllReviews from '../../actions/getAllReviews';
 /**
  *
 */
-class ReviewBar extends React.Component {
+export class ReviewBar extends React.Component {
   /**
    *
    * @param {object} props
@@ -60,6 +60,12 @@ class ReviewBar extends React.Component {
   }
 }
 
+ReviewBar.propTypes = {
+  allReviews: PropTypes.array.isRequired,
+  match: PropTypes.object.isRequired,
+  reviews: PropTypes.func.isRequired
+};
+
 /**
  * @param {Object} state
  *
@@ -75,7 +81,7 @@ const mapStateToProps = state => ({
  *
  * @returns {void}
  */
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   reviews: id => dispatch(getAllReviews(id))
 });
 

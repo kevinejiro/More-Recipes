@@ -5,7 +5,7 @@ import {
   GET_SINGLE_RECIPE,
   GET_SINGLE_RECIPE_ERROR,
   GET_REVIEWS,
-  GET_REVIEWS_ERROR,
+  GET_REVIEWS_ERROR
 } from '../actions/types';
 
 const initialState = {

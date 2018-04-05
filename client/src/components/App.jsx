@@ -10,7 +10,7 @@ import { signoutAction } from '../actions/signOut';
 /**
  * @class App
  */
-class App extends React.Component {
+export class App extends React.Component {
   /**
    *
    * @param {object} props
@@ -83,7 +83,7 @@ class App extends React.Component {
  *
  * @returns {void}
  */
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   signOutUser: () => {
     dispatch(signoutAction());
   }

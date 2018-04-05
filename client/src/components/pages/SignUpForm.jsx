@@ -9,7 +9,7 @@ import getSignUp from '../../actions/signUp';
 /**
  * @class SignUpForm
  */
-class SignUpForm extends React.Component {
+export class SignUpForm extends React.Component {
   /**
    *
    * @param {object} props
@@ -27,9 +27,9 @@ class SignUpForm extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   /**
-   * 
-   * 
-   * @param {any} event 
+   *
+   *
+   * @param {any} event
    * @memberof SignUpForm
    */
   onChange(event) {

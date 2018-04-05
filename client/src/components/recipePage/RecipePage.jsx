@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import sweetalert from 'sweetalert2';
+import toastr from 'toastr';
 
 import ReviewBar from './ReviewBar';
 import ReviewForm from './ReviewForm';
@@ -22,7 +23,7 @@ import EditRecipeComponent from './EditRecipeComponent';
  *
  * @param {string} voteType
  */
-class RecipePage extends React.Component {
+export class RecipePage extends React.Component {
   /**
    *
    * @param {object} props
@@ -53,11 +54,27 @@ class RecipePage extends React.Component {
   handleVoteBtnClick = (voteType) => {
     if (this.props.isAuthenticated) {
       this.props.voteRecipe(voteType, this.props.oneRecipe.id);
+    } else {
+      toastr.options = {
+        closeButton: true,
+        extendedTimeOut: '1000',
+        positionClass: 'toast-bottom-right',
+        hideMethod: 'fadeOut'
+      };
+      toastr.error('Please sign in to vote ');
     }
   }
   handleFavouriteBtnClick = () => {
     if (this.props.isAuthenticated) {
       this.props.favouriteRecipe(this.props.oneRecipe.id);
+    } else {
+      toastr.options = {
+        closeButton: true,
+        extendedTimeOut: '1000',
+        positionClass: 'toast-bottom-right',
+        hideMethod: 'fadeOut'
+      };
+      toastr.error('Please sign in to favourite a recipe');
     }
   }
   handleDeleteBtnClick = () => {
@@ -99,7 +116,6 @@ class RecipePage extends React.Component {
   }
 
   hasFavorited() {
-    console.log('>>>>>>>>>>>>>', this.props.oneRecipe);
     const result =
       this.props.oneRecipe.Favorites.find(fav => fav.userId === this.props.authUserId);
     if (result) {
@@ -136,6 +152,7 @@ class RecipePage extends React.Component {
                   Posted by
                   &nbsp;
                   <Link
+                    id="userIdName"
                     href={`/user/${ID}`}
                     to={`/user/${ID}`}
                   >
@@ -162,6 +179,7 @@ class RecipePage extends React.Component {
                   <i
                     aria-hidden="true"
                     className="fa fa-thumbs-up upvote clickable"
+                    id="upvote"
                     onClick={() => this.handleVoteBtnClick('vote-up')}
                   >
                     <span
@@ -173,6 +191,7 @@ class RecipePage extends React.Component {
                   <i
                     aria-hidden="true"
                     className="fa fa-thumbs-down downvote clickable"
+                    id="downvote"
                     onClick={() => this.handleVoteBtnClick('vote-down')}
                   >
                     <span
@@ -184,6 +203,7 @@ class RecipePage extends React.Component {
                   <i
                     aria-hidden="true"
                     className={`fa fa-heart clickable  favourite ${this.hasFavorited() ? 'favourited' : ''}`}
+                    id="favourite"
                     onClick={this.handleFavouriteBtnClick}
                   />
                   {
@@ -193,11 +213,13 @@ class RecipePage extends React.Component {
                       <i
                         aria-hidden="true"
                         className="fa fa-trash trash clickable"
+                        id="delete"
                         onClick={this.handleDeleteBtnClick}
                       />
                       <i
                         aria-hidden="true"
                         className="fa fa-edit edit clickable"
+                        id="edit"
                         onClick={this.handleEditbtnClick}
                       />
                     </span>
@@ -208,12 +230,25 @@ class RecipePage extends React.Component {
                 />
               </div>
             </div>
-            </div>
+          </div>
         }
       </div >
     );
   }
 }
+
+
+RecipePage.propTypes = {
+  recipe: PropTypes.func.isRequired,
+  voteRecipe: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  favouriteRecipe: PropTypes.func.isRequired,
+  deleteRecipe: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  oneRecipe: PropTypes.object.isRequired,
+  authUserId: PropTypes.string.isRequired,
+};
+
 /**
  * @param {Object} state
  *
@@ -231,7 +266,7 @@ const mapStateToProps = state => ({
  *
  * @returns {void}
  */
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   recipe: id => dispatch(getSingleRecipe(id)),
   voteRecipe: (voteType, id) => dispatch(voteRecipe(voteType, id)),
   favouriteRecipe: id => dispatch(favouriteRecipe(id)),

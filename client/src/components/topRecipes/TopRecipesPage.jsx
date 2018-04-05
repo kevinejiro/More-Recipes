@@ -13,7 +13,7 @@ import getAllRecipes, { searchRecipes } from '../../actions/getAllRecipes';
 /**
  * @class Toprecipes
  */
-class TopRecipes extends React.Component {
+export class TopRecipes extends React.Component {
   /**
    *
    * @param {object} props
@@ -96,8 +96,8 @@ class TopRecipes extends React.Component {
    * @returns {JSX} JSX element
    */
   render() {
-    const { recipes } = this.state;
-    const { searchAction } = this.props;
+    const { recipes, searchTerm } = this.state;
+
     let recipeList;
 
     if (recipes && recipes.length === 0) {
@@ -131,7 +131,7 @@ class TopRecipes extends React.Component {
             />
             <div className="body-wrapper-content">
               {recipeList}
-              {!searchAction &&
+              {!searchTerm &&
               <ReactPaginate
                   activeClassName="active"
                   containerClassName="pagination"
@@ -169,7 +169,7 @@ const mapStateToProps = state => ({
  *
  * @returns {void}
  */
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   getAllRecipes: ({ page, limit }) => dispatch(getAllRecipes({ page, limit })),
   searchRecipes: searchTerm => dispatch(searchRecipes(searchTerm))
 });

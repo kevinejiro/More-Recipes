@@ -12,7 +12,7 @@ import editRecipe from '../../actions/editRecipe';
  *
  * @param {string} event
  */
-class EditRecipeForm extends React.Component {
+export class EditRecipeForm extends React.Component {
   state = {
     title: '',
     description: '',
@@ -198,6 +198,7 @@ class EditRecipeForm extends React.Component {
         </div>
         <button
           className="btn btn-primary app-btn"
+          id="recipesubmit"
           type="submit"
         >
           Edit Recipe
@@ -221,7 +222,7 @@ const mapStateToProps = state => ({
  *
  * @returns {Object} dispatch to props
  */
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   editRecipe: (recipeData, id) => dispatch(editRecipe(recipeData, id))
 });
 

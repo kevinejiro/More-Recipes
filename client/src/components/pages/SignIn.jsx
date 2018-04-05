@@ -1,5 +1,5 @@
 import React from 'react';
-import SignInForm from './SignInForm';
+import ConnectedSignInForm from './SignInForm';
 
 /**
  * signin page component
@@ -19,7 +19,7 @@ const SignIn = props => (
               </h3>
             </div>
             <div className="panel-body">
-              <SignInForm {...props} />
+              <ConnectedSignInForm {...props} />
             </div>
           </div>
         </div>
