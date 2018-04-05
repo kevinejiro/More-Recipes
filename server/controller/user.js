@@ -2,7 +2,6 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import db from '../models';
 
-
 const {
   User,
   Recipe
@@ -114,8 +113,8 @@ const userCtrl = {
         const token = jwt.sign({
           user
         }, process.env.SECRET_KEY, {
-          expiresIn: '7d'
-        });
+            expiresIn: '7d'
+          });
         bcryptjs.compare(password, user.password).then((check) => {
           if (check) {
             res.status(200).json({
@@ -169,6 +168,7 @@ const userCtrl = {
             status: 'pass',
             username: req.recoveredUsername,
             message: 'User has not posted any recipes',
+            recipes
           });
         }
 

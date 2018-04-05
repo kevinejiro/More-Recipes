@@ -37,7 +37,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['client/build']),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.NODE_ENV': JSON.stringify('development'),
       'process.env.SERVER_URL': JSON.stringify('api/v1'),
       // 'process.env.FIREBASE_APIKEY': process.env.FIREBASE_APIKEY,
       // 'process.env.FIREBASE_AUTHDOMAIN': process.env.FIREBASE_AUTHDOMAIN,
@@ -56,7 +56,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin({
       //     multiStep: true,
     }),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     // new webpack.ProvidePlugin({
     //   $: 'jquery',
     //   jQuery: 'jquery'

@@ -29,7 +29,6 @@ const favoriteCtrl = {
       })
       .then((favorite) => {
         if (favorite) {
-          console.log(favorite);
           return favorite
             .destroy()
             .then(res.status(200).json({

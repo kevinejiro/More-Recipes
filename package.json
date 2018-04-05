@@ -10,16 +10,22 @@
     "start:dev": "nodemon --exec babel-node server/bin/www",
     "test:local": "cross-env NODE_ENV=test_local&& npm run migrate:undo&& npm run migrate&& nyc mocha server/test/test.js --compilers js:babel-core/register",
     "test:db": "set NODE_ENV=test && sequelize db:migrate:undo:all&&sequelize db:migrate && cross-env NODE_ENV=test nyc mocha server/test/test.js",
-    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register server/test/test.js",
-    "test:client": "jest ./client/__tests__/**/** --coverage",
+    "test:client": "jest ./client/__tests__/**/** --coverage --silent -u",
+    "test:watch": "jest ./client/__tests__/**/** --silent --watch",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "build": "node ./node_modules/babel-cli/bin/babel.js -d ./dist ./server --copy-files",
-    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc npm run test:server&& nyc report --reporter=text-lcov | coveralls",
     "migrate": "node ./node_modules/sequelize-cli/bin/sequelize db:migrate",
     "migrate:undo": "sequelize db:migrate:undo:all",
-    "heroku-postbuild": "npm run build && npm run build:front && npm run migrate"
+    "heroku-postbuild": "npm run build && npm run build:front && npm run migrate",
+    "test:server": "cross-env NODE_ENV=test npm run reset-migrate && cross-env NODE_ENV=test _mocha server/test/**.js --exit --require babel-register --reporter spec",
+    "reset-migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
+    "e2etest": "cross-env NODE_ENV=test npm run reset-migrate && cross-env NODE_ENV=test nightwatch"
   },
   "jest": {
+    "coveragePathIgnorePatterns": [
+      "/__tests__/"
+    ],
     "setupFiles": [
       "<rootDir>/client/__tests__/jestSetup.js"
     ],
@@ -61,9 +67,11 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0",
+    "chai": "^4.1.2",
     "clean-webpack-plugin": "^0.1.17",
     "compression-webpack-plugin": "^1.1.10",
     "cors": "^2.8.4",
@@ -79,6 +87,7 @@
     "jsonwebtoken": "^8.1.0",
     "jwt-decode": "^2.2.0",
     "morgan": "^1.9.0",
+    "nightwatch": "^0.9.20",
     "node-sass": "^4.7.2",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
@@ -101,6 +110,7 @@
     "sequelize-cli": "^2.8.0",
     "style-ext-html-webpack-plugin": "^3.4.6",
     "style-loader": "^0.19.1",
+    "supertest": "^3.0.0",
     "svg-inline-loader": "^0.8.0",
     "swagger-ui-express": "^3.0.4",
     "sweetalert2": "^7.17.0",
@@ -113,7 +123,7 @@
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "babel-preset-stage-0": "^6.24.1",
-    "chai": "^4.1.2",
+    "chromedriver": "^2.36.0",
     "coveralls": "^3.0.0",
     "cross-env": "^5.1.1",
     "enzyme": "^3.3.0",
@@ -132,7 +142,6 @@
     "nodemon": "^1.12.1",
     "nyc": "^11.2.1",
     "redux-mock-store": "^1.5.1",
-    "sinon": "^4.2.2",
-    "supertest": "^3.0.0"
+    "sinon": "^4.2.2"
   }
 }

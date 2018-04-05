@@ -5,7 +5,8 @@
     "shallow": true,
     "mount": true,
     "expect": true,
-    "mockStore": true
+    "mockStore": true,
+    "jest": true
   },
   "env": {
     "node": true,
