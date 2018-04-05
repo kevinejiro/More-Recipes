@@ -5,6 +5,8 @@ branches:
   only:
     - develop
 script:
- - npm run test:server
+ - npm run test
+env:
+  - NODE_ENV=test
 after_success:
   - npm run coverage
