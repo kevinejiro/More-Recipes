@@ -1,37 +1,36 @@
 import moxios from 'moxios';
 
-import getAllRecipes, {
-  searchRecipes,
-  allrecipes,
-  loadRecipesSucess,
-  allrecipesError
-} from '../../src/actions/getAllRecipes';
+import fetchUserRecipes, {
+  fetchUserFavouriteRecipes,
+  getUserRecipes,
+  getUserRecipesError
+} from '../../src/actions/getUserRecipes';
 
 import recipe from '../__mock__/recipe';
+
 import {
   unsetLoading,
   setLoading
 } from '../../src/actions/isLoading';
 
-describe('get recipes', () => {
+describe('Get user recipes', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
-  it('should get all recipes', (done) => {
+  it('should get all user recipes ', (done) => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: recipe.getRecipeResponse
+        response: recipe.addRecipeResponse
       });
     });
     const expectedActions = [
       setLoading(),
-      loadRecipesSucess(recipe.getRecipeResponse),
+      getUserRecipes(recipe.getRecipeResponse),
       unsetLoading()
-
     ];
     const store = mockStore({});
-    return store.dispatch(getAllRecipes(3, 4))
+    return store.dispatch(fetchUserRecipes(9))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();
@@ -41,41 +40,40 @@ describe('get recipes', () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
-        status: 400,
+        status: 500,
         response: {
-          message: 'error getting all recipes',
+          message: 'error getting all user recipes',
         }
       });
     });
     const expectedActions = [
       setLoading(),
-      allrecipesError('error getting all recipes'),
+      getUserRecipesError('error getting all user recipes'),
       unsetLoading()
     ];
     const store = mockStore({});
 
-    return store.dispatch(getAllRecipes(5))
+    return store.dispatch(fetchUserRecipes(9))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();
       });
   });
-  it('should get search result', (done) => {
+  it('should get all user favorites ', (done) => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: recipe.getRecipeResponse
+        response: recipe.addRecipeResponse
       });
     });
     const expectedActions = [
       setLoading(),
-      allrecipes(recipe.getRecipeResponse),
+      getUserRecipes(recipe.getRecipeResponse),
       unsetLoading()
-
     ];
     const store = mockStore({});
-    return store.dispatch(searchRecipes('hey'))
+    return store.dispatch(fetchUserFavouriteRecipes(9))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();
@@ -85,20 +83,20 @@ describe('get recipes', () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
-        status: 400,
+        status: 500,
         response: {
-          message: 'error getting all recipes',
+          message: 'error getting all user favorities',
         }
       });
     });
     const expectedActions = [
       setLoading(),
-      allrecipesError('error getting all recipes'),
+      getUserRecipesError('error getting all user favorities'),
       unsetLoading()
     ];
     const store = mockStore({});
 
-    return store.dispatch(searchRecipes('hey'))
+    return store.dispatch(fetchUserFavouriteRecipes(9))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();

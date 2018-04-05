@@ -1,33 +1,35 @@
 import moxios from 'moxios';
 
-import favouriteRecipe from '../../src/actions/favouriteRecipe';
+import getAllReviews, {
+  allReviews,
+  allReviewsError
+} from '../../src/actions/getAllReviews';
+
 import recipe from '../__mock__/recipe';
+
 import {
   unsetLoading,
   setLoading
 } from '../../src/actions/isLoading';
 
-describe('favourite a recipe', () => {
+describe('Get reviews', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
-  it('should favourite a recipe', (done) => {
+  it('should get all reviews', (done) => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: {
-          status: 'pass',
-          message: 'Recipe have been added to your favorites'
-        }
+        response: recipe.addRecipeResponse
       });
     });
     const expectedActions = [
       setLoading(),
-      unsetLoading(),
-      setLoading(),
+      allReviews(recipe.getRecipeResponse),
+      unsetLoading()
     ];
     const store = mockStore({});
-    return store.dispatch(favouriteRecipe(6))
+    return store.dispatch(getAllReviews(9))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();
@@ -37,19 +39,20 @@ describe('favourite a recipe', () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
-        status: 400,
+        status: 500,
         response: {
-          message: recipe.favouriteRecipeFailure,
+          message: 'error getting all reviews',
         }
       });
     });
     const expectedActions = [
       setLoading(),
+      allReviewsError('error getting all reviews'),
       unsetLoading()
     ];
     const store = mockStore({});
 
-    return store.dispatch(favouriteRecipe(5))
+    return store.dispatch(getAllReviews(9))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();

@@ -10,7 +10,7 @@ import getSignIn from '../../actions/signIn';
 /**
  * @class SignInForm
  */
-class SignInForm extends React.Component {
+export class SignInForm extends React.Component {
   /**
    *
    * @param {object} props
@@ -144,6 +144,11 @@ class SignInForm extends React.Component {
     );
   }
 }
+SignInForm.defaultProps = {
+  auth: {
+    isAuthenticated: false
+  }
+};
 SignInForm.contextTypes = {
   router: PropTypes.object.isRequired,
 };

@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import toastr from 'toastr';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
 import FileUploader from 'react-firebase-file-uploader';
-
-import addRecipe from '../../actions/addRecipe';
 
 /**
  *
@@ -12,7 +12,7 @@ import addRecipe from '../../actions/addRecipe';
  * @class addRecipeForm
  * @extends {React.Component}
  */
-class AddRecipeForm extends React.Component {
+export class AddRecipeForm extends React.Component {
   state = {
     title: '',
     description: '',
@@ -94,10 +94,7 @@ class AddRecipeForm extends React.Component {
       ingredients: this.state.ingredients,
       image: this.state.image
     };
-    this.props.addRecipe(recipeData)
-      .then(() => {
-        this.props.history.push('/toprecipes');
-      });
+    this.props.addRecipe(recipeData);
   }
   /**
    * @returns {JSX} JSX element
@@ -185,33 +182,55 @@ class AddRecipeForm extends React.Component {
             randomizeFilename
             storageRef={firebase.storage().ref('images')}
           />
+          {this.state.image &&
+            <img
+              alt={this.state.title}
+              height="30px"
+              src={this.state.image}
+            />
+          }
+          {this.state.progress}
+          {this.state.progress > 0 && this.state.progress < 100 &&
+            <span
+              style={{ color: 'black' }}
+            >
+              {this.state.progress}
+            </span>
+          }
         </div>
         <button
           className="btn btn-primary app-btn"
+          id="recipesubmit"
           type="submit"
         >
           Add Recipe
         </button>
+
       </form>
     );
   }
 }
-/**
- * @param {Object} state
- *
- * @returns {Object} props from state
- */
-const mapStateToProps = state => ({
-  userIsAuthenticated: state.auth.isAuthenticated
-});
+AddRecipeForm.propTypes = {
+  addRecipe: PropTypes.func.isRequired
+};
+// /**
+//  * @param {Object} state
+//  *
+//  * @returns {Object} props from state
+//  */
+// export const mapStateToProps = state => ({
+//   userIsAuthenticated: state.auth.isAuthenticated
+// });
 
 /**
  * @param {Object} dispatch
  *
  * @returns {Object} dispatch to props
  */
-const mapDispatchToProps = dispatch => ({
-  addRecipe: recipeData => dispatch(addRecipe(recipeData))
-});
+// export const mapDispatchToProps = dispatch => ({
+//   addRecipe: recipeData => dispatch(addRecipe(recipeData))
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddRecipeForm);
+export default AddRecipeForm;
+// connect(mapStateToProps, null)
+

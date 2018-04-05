@@ -18,6 +18,7 @@ const RecipeCard = props => (
     />
     <h5>
       <Link
+        id="cardlink"
         href={`/recipes/${props.id}`}
         to={`/recipes/${props.id}`}
       >

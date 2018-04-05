@@ -22,6 +22,7 @@ function Reviews(props) {
           <Link
             className="d-block text-gray-dark"
             href={`/user/${props.User.id}`}
+            id="reviews"
             to={`/user/${props.User.id}`}
           >
             {props.User.username}

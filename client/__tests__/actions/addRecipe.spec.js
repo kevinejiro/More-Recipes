@@ -1,33 +1,34 @@
 import moxios from 'moxios';
 
-import favouriteRecipe from '../../src/actions/favouriteRecipe';
+import addRecipe from '../../src/actions/addRecipe';
 import recipe from '../__mock__/recipe';
 import {
   unsetLoading,
   setLoading
 } from '../../src/actions/isLoading';
 
-describe('favourite a recipe', () => {
+describe('Add recipe', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
-  it('should favourite a recipe', (done) => {
+  it('should add recipe', (done) => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
-        status: 200,
-        response: {
-          status: 'pass',
-          message: 'Recipe have been added to your favorites'
-        }
+        status: 201,
+        response: recipe.addRecipeResponse
       });
     });
+    // const recipeInfo = { recipeInfo: recipe.addRecipeResponse.recipe };
     const expectedActions = [
       setLoading(),
-      unsetLoading(),
-      setLoading(),
+      {
+        recipeInfo: recipe.addRecipeResponse.recipe,
+        type: 'ADD_RECIPE_SUCCESS'
+      },
+      unsetLoading()
     ];
     const store = mockStore({});
-    return store.dispatch(favouriteRecipe(6))
+    return store.dispatch(addRecipe(recipe.recipeData))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();
@@ -38,9 +39,7 @@ describe('favourite a recipe', () => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 400,
-        response: {
-          message: recipe.favouriteRecipeFailure,
-        }
+        response: recipe.addRecipeFailure,
       });
     });
     const expectedActions = [
@@ -49,10 +48,11 @@ describe('favourite a recipe', () => {
     ];
     const store = mockStore({});
 
-    return store.dispatch(favouriteRecipe(5))
+    return store.dispatch(addRecipe(recipe.recipeData))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();
       });
   });
 });
+

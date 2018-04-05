@@ -7,7 +7,7 @@ import postReview from '../../actions/postReview';
 /**
  * @class ReviewForm
  */
-class ReviewForm extends React.Component {
+export class ReviewForm extends React.Component {
   state = {
     content: '',
   }
@@ -48,21 +48,23 @@ class ReviewForm extends React.Component {
   render() {
     return (
       <form
-        onSubmit={this.onSubmit}
-        className="comment">
+        className="comment"
+        onSubmit={this.onSubmit}>
         <div className="form-group">
           <textarea
             className="form-control"
             id="recipeComment"
+            name="content"
             onChange={this.onChange}
             placeholder="Review Recipe"
             rows="3"
             value={this.state.content}
-            name="content"
           />
         </div>
         <div className="form-group">
-          <button className="btn btn-success"
+          <button
+            className="btn btn-success"
+            id="reviewbutton"
           >
             Post Review
           </button>
@@ -82,11 +84,11 @@ const mapStateToProps = state => ({
 });
 
 /**
- * 
- * 
- * @param {any} dispatch 
+ *
+ *
+ * @param {any} dispatch
  */
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   postReview: reviewData => dispatch(postReview(reviewData))
 });
 

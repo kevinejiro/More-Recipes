@@ -6,7 +6,6 @@ import {
   setLoading
 } from './isLoading';
 
-
 /**
  *
  * @param {any} recipeData

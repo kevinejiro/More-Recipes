@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import toastr from 'toastr';
 import ReactPaginate from 'react-paginate';
 
+import addRecipe from '../../actions/addRecipe';
+
+
 import ProfileComponent from './ProfileComponent';
 import RecipeComponent from './RecipeComponent';
 import AddRecipeComponent from './AddRecipeComponent';
@@ -16,7 +19,7 @@ import fetchUserRecipes, {
 /**
  * @class ProfilePage
  */
-class ProfilePage extends React.Component {
+export class ProfilePage extends React.Component {
   /**
    *
    * @param {object} props
@@ -124,6 +127,16 @@ class ProfilePage extends React.Component {
       });
     }
   }
+  addRecipeFunc = (recipeDetails) => {
+    this.props
+      .addRecipe(recipeDetails)
+      .then(() => {
+        this.setState({
+          currentActionType: 'My Recipes'
+        }, () => {
+        });
+      });
+  }
   /**
    * @returns {JSX} JSX element
    */
@@ -157,7 +170,11 @@ class ProfilePage extends React.Component {
               />
             }
             {currentActionType === 'Add Recipe' &&
-              <AddRecipeComponent {...this.props} />
+              <AddRecipeComponent
+                {...this.props}
+                addRecipe={this.addRecipeFunc}
+                userIsAuthenticated={this.props.auth.isAuthenticated}
+              />
             }
           </div>
         </div>
@@ -169,6 +186,7 @@ ProfilePage.contextTypes = {
   router: PropTypes.object.isRequired,
 };
 ProfilePage.propTypes = {
+  addRecipe: PropTypes.func.isRequired,
   auth: PropTypes.object,
   fetchedUsername: PropTypes.string,
   fetchedUserRecipes: PropTypes.array,
@@ -201,6 +219,7 @@ const mapStateToProps = state => ({
  * @returns {Object} dispatch to props
  */
 const mapDispatchToProps = dispatch => ({
+  addRecipe: recipeData => dispatch(addRecipe(recipeData)),
   userRecipes: ID => dispatch(fetchUserRecipes(ID)),
   getFavouriteRecipes: ID => dispatch(fetchUserFavouriteRecipes(ID)),
 });

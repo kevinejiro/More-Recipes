@@ -1,29 +1,34 @@
 import moxios from 'moxios';
 
-import addRecipe from '../../src/actions/addRecipe';
+import getSingleRecipe, {
+  oneRecipeError,
+  oneRecipe
+} from '../../src/actions/getSingleRecipe';
+
 import recipe from '../__mock__/recipe';
 import {
   unsetLoading,
   setLoading
 } from '../../src/actions/isLoading';
 
-describe('Add recipe', () => {
+describe('Get one recipe', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
-  it('should add recipe', (done) => {
+  it('should get one recipe', (done) => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
-        status: 201,
+        status: 200,
         response: recipe.addRecipeResponse
       });
     });
     const expectedActions = [
       setLoading(),
+      oneRecipe(recipe.getRecipeResponse),
       unsetLoading()
     ];
     const store = mockStore({});
-    return store.dispatch(addRecipe(recipe.recipeData))
+    return store.dispatch(getSingleRecipe(9))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();
@@ -34,20 +39,22 @@ describe('Add recipe', () => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 400,
-        response: recipe.addRecipeFailure,
+        response: {
+          message: 'error getting single recipe',
+        }
       });
     });
     const expectedActions = [
       setLoading(),
+      oneRecipeError('error getting single recipe'),
       unsetLoading()
     ];
     const store = mockStore({});
 
-    return store.dispatch(addRecipe(recipe.recipeData))
+    return store.dispatch(getSingleRecipe(9))
       .then(() => {
         expect(store.getActions()).toEqual(expectedActions);
         done();
       });
   });
 });
-

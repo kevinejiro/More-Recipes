@@ -2,10 +2,25 @@ import axios from 'axios';
 import toastr from 'toastr';
 
 import {
+  ADD_RECIPE_SUCCESS
+} from './types';
+
+
+import {
   unsetLoading,
   setLoading
 } from './isLoading';
 
+/**
+ *
+ * @param {object} recipeInfo
+ *
+ * @returns {object} action
+ */
+export const addRecipeSuccess = recipeInfo => ({
+  type: ADD_RECIPE_SUCCESS,
+  recipeInfo
+});
 
 /**
  *
@@ -26,10 +41,13 @@ const addRecipe = recipeData => (dispatch) => {
     headers: {
       token: userToken
     }
-  }).then(() => {
+  }).then((response) => {
+    console.log('the response========', response);
+    dispatch(addRecipeSuccess(response.data.recipe));
     dispatch(unsetLoading());
   }).catch((error) => {
-    const errorMessage = error.response.data.message;
+    console.log('the error====', error);
+    const errorMessage = error;
     toastr.options = {
       closeButton: true,
       extendedTimeOut: '1000',
