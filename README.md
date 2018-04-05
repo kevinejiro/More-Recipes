@@ -1,7 +1,7 @@
 # More-Recipes
 [![Build Status](https://travis-ci.org/kevinejiro/More-Recipes.svg?branch=develop)](https://travis-ci.org/kevinejiro/More-Recipes)
 [![Maintainability](https://api.codeclimate.com/v1/badges/532c61aa499cfbc72d48/maintainability)](https://codeclimate.com/github/kevinejiro/More-Recipes/maintainability)
-[![Coverage Status](https://coveralls.io/repos/github/kevinejiro/More-Recipes/badge.svg?branch=develop)](https://coveralls.io/github/kevinejiro/More-Recipes?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/kevinejiro/More-Recipes/badge.svg?branch=temp%2Ftravis-fix)](https://coveralls.io/github/kevinejiro/More-Recipes?branch=temp%2Ftravis-fix)
 
 
 
@@ -23,6 +23,7 @@ A platform for users to share their awesome and exciting recipes ideas with the 
 - [Testing](#testing)
 - [Features](#features)
 - [Models](#models)
+- [API Documentation](#api-documentation)
 - [Express Routes](#express-routes)
 - [License](#license)
 - [FAQ](#faqs)
@@ -121,6 +122,9 @@ More Recipes consists of the following features:
 
 Five models are defined: **User**, **Recipe**, **Favorite**,**Review**, and **Vote**. **Recipe** must have a unique title on their creation. A **User** can create a **Recipe**. The routes are defined under **models/index**.
 
+## API Documentation
+
+You can view the API Documentation [here](https://more-recipesv1.herokuapp.com/api-docs)
 
 ## Express Routes
 
